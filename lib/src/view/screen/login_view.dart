@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -57,15 +55,13 @@ class _LoginViewState extends State<LoginView> {
               final password = _password.text;
 
               try {
-                final userCredential = await FirebaseAuth.instance
-                    .signInWithEmailAndPassword(
-                        email: email, password: password);
+                await FirebaseAuth.instance.signInWithEmailAndPassword(
+                    email: email, password: password);
 
                 // Check if user is logged in
                 if (FirebaseAuth.instance.currentUser != null) {
                   Navigator.of(context).pushReplacementNamed('/home/');
                 } else {
-                  // Redirect to login if not logged in
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text(
@@ -75,26 +71,16 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   );
                 }
-              } on FirebaseAuthException catch (e) {
-                if (e.code == 'user-not-found') {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text(
-                        'User not found.',
-                      ),
-                      backgroundColor: Colors.red,
+              } catch (e) {
+                // Catch all exceptions and display them in a Snackbar
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      'Error: ${e.toString()}',
                     ),
-                  );
-                } else if (e.code == 'wrong-password') {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text(
-                        'Incorrect password.',
-                      ),
-                      backgroundColor: Colors.red,
-                    ),
-                  );
-                }
+                    backgroundColor: Colors.red,
+                  ),
+                );
               }
             },
             child: const Text("Login"),
