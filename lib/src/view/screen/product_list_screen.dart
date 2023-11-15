@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:e_commerce_flutter/core/app_data.dart';
 import 'package:e_commerce_flutter/core/app_color.dart';
 import 'package:e_commerce_flutter/src/controller/product_controller.dart';
 import 'package:e_commerce_flutter/src/view/widget/product_grid_view.dart';
@@ -32,95 +31,6 @@ class ProductListScreen extends StatelessWidget {
         onPressed: () {},
         icon: Icon(icon, color: Colors.black),
       ),
-    );
-  }
-
-  PreferredSize get _appBar {
-    return PreferredSize(
-      preferredSize: const Size.fromHeight(100),
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              appBarActionButton(AppbarActionType.leading),
-              appBarActionButton(AppbarActionType.trailing),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _recommendedProductListView(BuildContext context) {
-    return SizedBox(
-      height: 170,
-      child: ListView.builder(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          itemCount: AppData.recommendedProducts.length,
-          itemBuilder: (_, index) {
-            return Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: Container(
-                width: 300,
-                decoration: BoxDecoration(
-                  color: AppData.recommendedProducts[index].cardBackgroundColor,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            '30% OFF DURING \nCOVID 19',
-                            style: Theme.of(context)
-                                .textTheme
-                                .displaySmall
-                                ?.copyWith(color: Colors.white),
-                          ),
-                          const SizedBox(height: 8),
-                          ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppData
-                                  .recommendedProducts[index]
-                                  .buttonBackgroundColor,
-                              elevation: 0,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 18),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18),
-                              ),
-                            ),
-                            child: Text(
-                              "Get Now",
-                              style: TextStyle(
-                                color: AppData.recommendedProducts[index]
-                                    .buttonTextColor!,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    const Spacer(),
-                    Image.asset(
-                      'assets/images/shopping.png',
-                      height: 125,
-                      fit: BoxFit.cover,
-                    )
-                  ],
-                ),
-              ),
-            );
-          }),
     );
   }
 
@@ -164,7 +74,7 @@ class ProductListScreen extends StatelessWidget {
     controller.getAllItems();
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: _appBar,
+      appBar: AppBar(backgroundColor: const Color(0xFFf16b26)),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -173,14 +83,13 @@ class ProductListScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Hello Sina",
+                  "Hello User",
                   style: Theme.of(context).textTheme.displayLarge,
                 ),
                 Text(
                   "Lets gets somethings?",
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
-                _recommendedProductListView(context),
                 _topCategoriesHeader(context),
                 _topCategoriesListView(),
                 GetBuilder(builder: (ProductController controller) {
