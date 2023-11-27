@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_flutter/core/app_color.dart';
@@ -71,6 +72,8 @@ class ProductListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    User? user = FirebaseAuth.instance.currentUser;
+    String username = user?.displayName ?? "Guest";
     controller.getAllItems();
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -83,7 +86,7 @@ class ProductListScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Hello User",
+                  'Hello $username',
                   style: Theme.of(context).textTheme.displayLarge,
                 ),
                 Text(

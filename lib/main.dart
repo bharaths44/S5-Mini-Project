@@ -7,10 +7,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
     MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.amberAccent),
@@ -21,6 +25,7 @@ void main() {
         '/login/': (context) => const LoginView(),
         '/register/': (context) => const RegisterView(),
         '/home/': (context) => const HomeScreen(),
+        '/verifyemail/': (context) => const VerifyEmailView(),
       },
     ),
   );
@@ -43,7 +48,8 @@ class HomePage extends StatelessWidget {
               if (user.emailVerified) {
                 // Display the message and redirect to login screen
                 WidgetsBinding.instance.addPostFrameCallback((_) {
-                  Navigator.of(context).pushReplacementNamed('/login/');
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil('/login/', (route) => false);
                 });
                 return const Scaffold(
                   body: Center(child: Text("Email is verified")),

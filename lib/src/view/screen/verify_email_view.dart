@@ -9,6 +9,14 @@ class VerifyEmailView extends StatefulWidget {
 }
 
 class _VerifyEmailViewState extends State<VerifyEmailView> {
+  late final NavigatorState navigator;
+
+  @override
+  void initState() {
+    super.initState();
+    navigator = Navigator.of(context); // Store the Navigator instance
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +30,9 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
           onPressed: () async {
             final user = FirebaseAuth.instance.currentUser;
             await user?.sendEmailVerification();
-            Navigator.of(context).pushReplacementNamed('/login/');
+            if (mounted) { // Check if the widget is still mounted
+              navigator.pushNamedAndRemoveUntil('/login/', (route) => false);
+            }
           },
           child: const Text("Send email verification"),
         )

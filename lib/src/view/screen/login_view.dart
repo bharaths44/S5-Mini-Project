@@ -34,20 +34,47 @@ class _LoginViewState extends State<LoginView> {
         backgroundColor: Colors.amber,
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           TextField(
             controller: _email,
             enableSuggestions: false,
             autocorrect: false,
             keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(hintText: 'Enter email'),
+            decoration: InputDecoration(
+                labelText: 'Enter email',
+                enabledBorder: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(width: 4, color: Colors.amberAccent),
+                    borderRadius: BorderRadius.circular(25)),
+                focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(width: 4, color: Colors.amberAccent),
+                    borderRadius: BorderRadius.circular(25))),
+          ),
+          const Divider(
+            color: Colors.transparent,
+            height: 25,
+            thickness: 1,
+            indent: 20,
+            endIndent: 20,
           ),
           TextField(
             controller: _password,
             obscureText: true,
             enableSuggestions: false,
             autocorrect: false,
-            decoration: const InputDecoration(hintText: "Enter password"),
+            decoration: InputDecoration(
+                labelText: "Enter password",
+                enabledBorder: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(width: 4, color: Colors.amberAccent),
+                    borderRadius: BorderRadius.circular(25)),
+                focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(width: 4, color: Colors.amberAccent),
+                    borderRadius: BorderRadius.circular(25))),
           ),
           TextButton(
             onPressed: () async {
@@ -60,7 +87,10 @@ class _LoginViewState extends State<LoginView> {
 
                 // Check if user is logged in
                 if (FirebaseAuth.instance.currentUser != null) {
-                  Navigator.of(context).pushReplacementNamed('/home/');
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    '/home/',
+                    (route) => false,
+                  );
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
