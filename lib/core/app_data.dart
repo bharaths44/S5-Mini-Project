@@ -1,5 +1,5 @@
 import 'package:e_commerce_flutter/src/model/bottom_navy_bar_item.dart';
-import 'package:e_commerce_flutter/src/model/recommended_product.dart';
+
 import 'package:e_commerce_flutter/src/model/product_size_type.dart';
 import 'package:e_commerce_flutter/src/model/product_category.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -237,16 +237,17 @@ class AppData {
     ),
   ];
 
-  static List<RecommendedProduct> recommendedProducts = [
-    RecommendedProduct(
-      imagePath: "",
-      cardBackgroundColor: const Color(0xFFEC6813),
-    ),
-    RecommendedProduct(
-      imagePath: "",
-      cardBackgroundColor: const Color(0xFF3081E1),
-      buttonBackgroundColor: const Color(0xFF9C46FF),
-      buttonTextColor: Colors.white,
-    ),
-  ];
+//   static List<RecommendedProduct> recommendedProducts = [
+//     RecommendedProduct(
+//       imagePath: "",
+//       cardBackgroundColor: const Color(0xFFEC6813),
+//     ),
+//     RecommendedProduct(
+//       imagePath: "",
+//       cardBackgroundColor: const Color(0xFF3081E1),
+//       buttonBackgroundColor: const Color(0xFF9C46FF),
+//       buttonTextColor: Colors.white,
+//     ),
+//   ];
+// }
 }
