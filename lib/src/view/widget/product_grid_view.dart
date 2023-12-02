@@ -6,59 +6,60 @@ class ProductGridView extends StatelessWidget {
   const ProductGridView({
     Key? key,
     required this.items,
-   // required this.isPriceOff,
+    
     required this.likeButtonPressed,
   }) : super(key: key);
 
   final List<Product> items;
- // final bool Function(Product product) isPriceOff;
+
   final void Function(int index) likeButtonPressed;
 
-  Widget _gridItemHeader(Product product, int index) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Visibility(
-           // visible: isPriceOff(product),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: Colors.white,
-              ),
-              width: 80,
-              height: 30,
-              alignment: Alignment.center,
-              child: const Text(
-                "30% OFF",
-                style: TextStyle(fontWeight: FontWeight.w600),
-              ),
-            ),
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.favorite,
-              color: items[index].isFavorite
-                  ? Colors.redAccent
-                  : const Color(0xFFA6A3A0),
-            ),
-            onPressed: () => likeButtonPressed(index),
-          ),
-        ],
-      ),
-    );
-  }
+  //   return Padding(
+  //     padding: const EdgeInsets.all(10.0),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children: [
+  //         Visibility(
+  //           // visible: isPriceOff(product),
+  //           child: Container(
+  //             decoration: BoxDecoration(
+  //               borderRadius: BorderRadius.circular(30),
+  //               color: Colors.white,
+  //             ),
+  //             width: 80,
+  //             height: 30,
+  //             alignment: Alignment.center,
+  //             child: const Text(
+  //               "30% OFF",
+  //               style: TextStyle(fontWeight: FontWeight.w600),
+  //             ),
+  //           ),
+  //         ),
+  //         IconButton(
+  //           icon: Icon(
+  //             Icons.favorite,
+  //             color: items[index].isFavorite
+  //                 ? Colors.redAccent
+  //                 : const Color(0xFFA6A3A0),
+  //           ),
+  //           onPressed: () => likeButtonPressed(index),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget _gridItemBody(Product product) {
     return Container(
-      padding: const EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        color: const Color(0xFFE5E6E8),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Image.asset(product.image, scale: 3),
-    );
+        padding: const EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          color: const Color(0xFFE5E6E8),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Image(
+          image: NetworkImage(product.image,
+              headers: {'Cache-Control': 'no-cache'}),
+        ));
   }
 
   Widget _gridItemFooter(Product product, BuildContext context) {
@@ -66,7 +67,7 @@ class ProductGridView extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Container(
         padding: const EdgeInsets.all(10),
-        height: 60,
+        //height: 70,
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -85,29 +86,30 @@ class ProductGridView extends StatelessWidget {
                 maxLines: 1,
                 style: const TextStyle(
                   fontWeight: FontWeight.w500,
-                  color: Colors.grey,
+                  color: Colors.black,
                 ),
               ),
             ),
-            const SizedBox(height: 5),
+            // const SizedBox(height: 5),
             Row(
               children: [
-                Text(
-                  "\$${product.price}",
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-                const SizedBox(width: 3),
-                Visibility(
-                  //  visible: product.off != null ? true : false,
-                  child: Text(
-                    "\$${product.price}",
+                Text("\$${product.price}",
                     style: const TextStyle(
-                      decoration: TextDecoration.lineThrough,
-                      color: Colors.grey,
                       fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                )
+                      fontSize: 17,
+                    )),
+                // const SizedBox(width: 3),
+                // Visibility(
+                //   //  visible: product.off != null ? true : false,
+                //   child: Text(
+                //     "\$${product.price}",
+                //     style: const TextStyle(
+                //       decoration: TextDecoration.lineThrough,
+                //       color: Colors.grey,
+                //       fontWeight: FontWeight.w500,
+                //     ),
+                //   ),
+                // )
               ],
             )
           ],
@@ -135,7 +137,7 @@ class ProductGridView extends StatelessWidget {
           return OpenContainerWrapper(
             product: product,
             child: GridTile(
-              header: _gridItemHeader(product, index),
+              //header: _gridItemHeader(product, index),
               footer: _gridItemFooter(product, context),
               child: _gridItemBody(product),
             ),

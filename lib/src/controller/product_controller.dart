@@ -20,14 +20,14 @@ class ProductController extends GetxController {
   void onInit() {
     super.onInit();
     fetchProducts();
-   // FirebaseFunctions().addProduct();
+    // FirebaseFunctions().addProduct();
     print("fetching");
   }
 
   Future<void> fetchProducts() async {
     allProducts = await firebaseFunctions.getProducts();
     filteredProducts.value = allProducts;
-    print(allProducts);
+    print(allProducts.asMap());
   }
 
   void filterItemsByCategory(int index) {
@@ -36,7 +36,7 @@ class ProductController extends GetxController {
     }
     categories[index].isSelected = true;
 
-    if (categories[index].type == ProductType.all) {
+    if (categories[index].type == "all") {
       filteredProducts.assignAll(allProducts);
     } else {
       filteredProducts.assignAll(allProducts.where((item) {
