@@ -20,7 +20,7 @@ class ListItemSelector extends StatefulWidget {
 class _ListItemSelectorState extends State<ListItemSelector> {
   Widget item(ProductCategory item, int index) {
     return Tooltip(
-      message: item.type.name.capitalizeFirst,
+      message: item.type,
       child: AnimatedContainer(
         margin: const EdgeInsets.only(left: 5),
         duration: const Duration(milliseconds: 500),

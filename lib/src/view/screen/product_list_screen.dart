@@ -99,7 +99,7 @@ class ProductListScreen extends StatelessWidget {
                   return ProductGridView(
                     items: controller.filteredProducts,
                     likeButtonPressed: (index) => controller.isFavorite(index),
-                    isPriceOff: (product) => controller.isPriceOff(product),
+                    //isPriceOff: (product) => controller.isPriceOff(product),
                   );
                 }),
               ],

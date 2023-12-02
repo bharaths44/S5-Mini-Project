@@ -50,48 +50,47 @@ class CartScreen extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Image.asset(
-                          product.images[0],
-                          width: 100,
-                          height: 90,
-                        ),
-                      ),
+                          padding: const EdgeInsets.all(5),
+                          child: Image(
+                              width: 50,
+                              height: 50,
+                              image: NetworkImage(product.image,
+                                  headers: {'Cache-Control': 'no-cache'}))),
                     ),
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      product.name.nextLine,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15,
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                      controller.getCurrentSize(product),
-                      style: TextStyle(
-                        color: Colors.black.withOpacity(0.5),
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                      controller.isPriceOff(product)
-                          ? "\$${product.off}"
-                          : "\$${product.price}",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 23,
-                      ),
-                    ),
-                  ],
-                ),
+                // Column(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     Text(
+                //       product.name.nextLine,
+                //       maxLines: 2,
+                //       overflow: TextOverflow.ellipsis,
+                //       style: const TextStyle(
+                //         fontWeight: FontWeight.w600,
+                //         fontSize: 15,
+                //       ),
+                //     ),
+                //     const SizedBox(height: 5),
+                //     Text(
+                //     //  controller.getCurrentSize(product),
+                //       style: TextStyle(
+                //         color: Colors.black.withOpacity(0.5),
+                //         fontWeight: FontWeight.w400,
+                //       ),
+                //     ),
+                //     const SizedBox(height: 5),
+                //     Text(
+                //       controller.isPriceOff(product)
+                //           ? "\$${product.off}"
+                //           : "\$${product.price}",
+                //       style: const TextStyle(
+                //         fontWeight: FontWeight.w900,
+                //         fontSize: 23,
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.white,

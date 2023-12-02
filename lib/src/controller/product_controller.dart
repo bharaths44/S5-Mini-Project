@@ -1,3 +1,4 @@
+import 'package:e_commerce_flutter/src/controller/firebase_functions.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:e_commerce_flutter/core/app_data.dart';
 import 'package:e_commerce_flutter/src/model/product.dart';
@@ -7,11 +8,27 @@ import 'package:e_commerce_flutter/src/model/product_category.dart';
 import 'package:e_commerce_flutter/src/model/product_size_type.dart';
 
 class ProductController extends GetxController {
-  List<Product> allProducts = AppData.products;
-  RxList<Product> filteredProducts = AppData.products.obs;
+  FirebaseFunctions firebaseFunctions = FirebaseFunctions();
+
+  List<Product> allProducts = [];
+  RxList<Product> filteredProducts = <Product>[].obs;
   RxList<Product> cartProducts = <Product>[].obs;
   RxList<ProductCategory> categories = AppData.categories.obs;
   RxInt totalPrice = 0.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    fetchProducts();
+   // FirebaseFunctions().addProduct();
+    print("fetching");
+  }
+
+  Future<void> fetchProducts() async {
+    allProducts = await firebaseFunctions.getProducts();
+    filteredProducts.value = allProducts;
+    print(allProducts);
+  }
 
   void filterItemsByCategory(int index) {
     for (ProductCategory element in categories) {
@@ -53,20 +70,20 @@ class ProductController extends GetxController {
     update();
   }
 
-  bool isPriceOff(Product product) => product.off != null;
+  // bool isPriceOff(Product product) => product.off != null;
 
   bool get isEmptyCart => cartProducts.isEmpty;
 
-  bool isNominal(Product product) => product.sizes?.numerical != null;
+  // bool isNominal(Product product) => product.sizes?.numerical != null;
 
   void calculateTotalPrice() {
     totalPrice.value = 0;
     for (var element in cartProducts) {
-      if (isPriceOff(element)) {
-        totalPrice.value += element.quantity * element.off!;
-      } else {
-        totalPrice.value += element.quantity * element.price;
-      }
+      // if (isPriceOff(element)) {
+      //   totalPrice.value += element.quantity * element.off!;
+      // } else {
+      totalPrice.value += element.quantity * element.price;
+      // }
     }
   }
 
@@ -86,71 +103,71 @@ class ProductController extends GetxController {
     filteredProducts.assignAll(allProducts);
   }
 
-  List<Numerical> sizeType(Product product) {
-    ProductSizeType? productSize = product.sizes;
-    List<Numerical> numericalList = [];
+  // List<Numerical> sizeType(Product product) {
+  //   ProductSizeType? productSize = product.sizes;
+  //   List<Numerical> numericalList = [];
 
-    if (productSize?.numerical != null) {
-      for (var element in productSize!.numerical!) {
-        numericalList.add(Numerical(element.numerical, element.isSelected));
-      }
-    }
+  //   if (productSize?.numerical != null) {
+  //     for (var element in productSize!.numerical!) {
+  //       numericalList.add(Numerical(element.numerical, element.isSelected));
+  //     }
+  //   }
 
-    if (productSize?.categorical != null) {
-      for (var element in productSize!.categorical!) {
-        numericalList.add(
-          Numerical(
-            element.categorical.name,
-            element.isSelected,
-          ),
-        );
-      }
-    }
+  //   if (productSize?.categorical != null) {
+  //     for (var element in productSize!.categorical!) {
+  //       numericalList.add(
+  //         Numerical(
+  //           element.categorical.name,
+  //           element.isSelected,
+  //         ),
+  //       );
+  //     }
+  //   }
 
-    return numericalList;
-  }
+  //   return numericalList;
+  // }
 
-  void switchBetweenProductSizes(Product product, int index) {
-    sizeType(product).forEach((element) {
-      element.isSelected = false;
-    });
+  // void switchBetweenProductSizes(Product product, int index) {
+  //   sizeType(product).forEach((element) {
+  //     element.isSelected = false;
+  //   });
 
-    if (product.sizes?.categorical != null) {
-      for (var element in product.sizes!.categorical!) {
-        element.isSelected = false;
-      }
+  //   if (product.sizes?.categorical != null) {
+  //     for (var element in product.sizes!.categorical!) {
+  //       element.isSelected = false;
+  //     }
 
-      product.sizes?.categorical![index].isSelected = true;
-    }
+  //     product.sizes?.categorical![index].isSelected = true;
+  //   }
 
-    if (product.sizes?.numerical != null) {
-      for (var element in product.sizes!.numerical!) {
-        element.isSelected = false;
-      }
+  //   if (product.sizes?.numerical != null) {
+  //     for (var element in product.sizes!.numerical!) {
+  //       element.isSelected = false;
+  //     }
 
-      product.sizes?.numerical![index].isSelected = true;
-    }
+  //     product.sizes?.numerical![index].isSelected = true;
+  //   }
 
-    update();
-  }
+  //   update();
+  // }
 
-  String getCurrentSize(Product product) {
-    String currentSize = "";
-    if (product.sizes?.categorical != null) {
-      for (var element in product.sizes!.categorical!) {
-        if (element.isSelected) {
-          currentSize = "Size: ${element.categorical.name}";
-        }
-      }
-    }
+  // String getCurrentSize(Product product) {
+  //   String currentSize = "";
+  //   if (product.sizes?.categorical != null) {
+  //     for (var element in product.sizes!.categorical!) {
+  //       if (element.isSelected) {
+  //         currentSize = "Size: ${element.categorical.name}";
+  //       }
+  //     }
+  //   }
 
-    if (product.sizes?.numerical != null) {
-      for (var element in product.sizes!.numerical!) {
-        if (element.isSelected) {
-          currentSize = "Size: ${element.numerical}";
-        }
-      }
-    }
-    return currentSize;
-  }
+  //   if (product.sizes?.numerical != null) {
+  //     for (var element in product.sizes!.numerical!) {
+  //       if (element.isSelected) {
+  //         currentSize = "Size: ${element.numerical}";
+  //       }
+  //     }
+  //   }
+  //   return currentSize;
+  // }
 }

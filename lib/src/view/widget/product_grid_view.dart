@@ -6,12 +6,12 @@ class ProductGridView extends StatelessWidget {
   const ProductGridView({
     Key? key,
     required this.items,
-    required this.isPriceOff,
+   // required this.isPriceOff,
     required this.likeButtonPressed,
   }) : super(key: key);
 
   final List<Product> items;
-  final bool Function(Product product) isPriceOff;
+ // final bool Function(Product product) isPriceOff;
   final void Function(int index) likeButtonPressed;
 
   Widget _gridItemHeader(Product product, int index) {
@@ -21,7 +21,7 @@ class ProductGridView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Visibility(
-            visible: isPriceOff(product),
+           // visible: isPriceOff(product),
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
@@ -57,7 +57,7 @@ class ProductGridView extends StatelessWidget {
         color: const Color(0xFFE5E6E8),
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Image.asset(product.images[0], scale: 3),
+      child: Image.asset(product.image, scale: 3),
     );
   }
 
@@ -93,14 +93,12 @@ class ProductGridView extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  product.off != null
-                      ? "\$${product.off}"
-                      : "\$${product.price}",
+                  "\$${product.price}",
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 const SizedBox(width: 3),
                 Visibility(
-                  visible: product.off != null ? true : false,
+                  //  visible: product.off != null ? true : false,
                   child: Text(
                     "\$${product.price}",
                     style: const TextStyle(

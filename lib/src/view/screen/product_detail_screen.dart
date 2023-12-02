@@ -36,65 +36,67 @@ class ProductDetailScreen extends StatelessWidget {
           bottomLeft: Radius.circular(200),
         ),
       ),
-      child: CarouselSlider(items: product.images),
+      child: Image(
+          image: NetworkImage(product.image,
+              headers: {'Cache-Control': 'no-cache'})),
     );
   }
 
-  Widget _ratingBar(BuildContext context) {
-    return Wrap(
-      spacing: 30,
-      crossAxisAlignment: WrapCrossAlignment.center,
-      children: [
-        RatingBar.builder(
-          initialRating: product.rating,
-          direction: Axis.horizontal,
-          itemBuilder: (_, __) => const Icon(Icons.star, color: Colors.amber),
-          onRatingUpdate: (_) {},
-        ),
-        Text(
-          "(4500 Reviews)",
-          style: Theme.of(context)
-              .textTheme
-              .displaySmall
-              ?.copyWith(fontWeight: FontWeight.w300),
-        )
-      ],
-    );
-  }
+  // Widget _ratingBar(BuildContext context) {
+  //   return Wrap(
+  //     spacing: 30,
+  //     crossAxisAlignment: WrapCrossAlignment.center,
+  //     children: [
+  //       RatingBar.builder(
+  //         initialRating: product.rating,
+  //         direction: Axis.horizontal,
+  //         itemBuilder: (_, __) => const Icon(Icons.star, color: Colors.amber),
+  //         onRatingUpdate: (_) {},
+  //       ),
+  //       Text(
+  //         "(4500 Reviews)",
+  //         style: Theme.of(context)
+  //             .textTheme
+  //             .displaySmall
+  //             ?.copyWith(fontWeight: FontWeight.w300),
+  //       )
+  //     ],
+  //   );
+  // }
 
-  Widget productSizesListView() {
-    return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: controller.sizeType(product).length,
-      itemBuilder: (_, index) {
-        return InkWell(
-          onTap: () => controller.switchBetweenProductSizes(product, index),
-          child: AnimatedContainer(
-            margin: const EdgeInsets.only(right: 5, left: 5),
-            alignment: Alignment.center,
-            width: controller.isNominal(product) ? 40 : 70,
-            decoration: BoxDecoration(
-              color: controller.sizeType(product)[index].isSelected == false
-                  ? Colors.white
-                  : AppColor.lightOrange,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.grey, width: 0.4),
-            ),
-            duration: const Duration(milliseconds: 300),
-            child: FittedBox(
-              child: Text(
-                controller.sizeType(product)[index].numerical,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 15,
-                ),
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
+  // Widget productSizesListView() {
+  //   return ListView.builder(
+  //     scrollDirection: Axis.horizontal,
+  //     itemCount: controller.sizeType(product).length,
+  //     itemBuilder: (_, index) {
+  //       return InkWell(
+  //         onTap: () => controller.switchBetweenProductSizes(product, index),
+  //         child: AnimatedContainer(
+  //           margin: const EdgeInsets.only(right: 5, left: 5),
+  //           alignment: Alignment.center,
+  //           width: controller.isNominal(product) ? 40 : 70,
+  //           decoration: BoxDecoration(
+  //             color: controller.sizeType(product)[index].isSelected == false
+  //                 ? Colors.white
+  //                 : AppColor.lightOrange,
+  //             borderRadius: BorderRadius.circular(10),
+  //             border: Border.all(color: Colors.grey, width: 0.4),
+  //           ),
+  //           duration: const Duration(milliseconds: 300),
+  //           child: FittedBox(
+  //             child: Text(
+  //               controller.sizeType(product)[index].numerical,
+  //               style: const TextStyle(
+  //                 fontWeight: FontWeight.w500,
+  //                 fontSize: 15,
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -121,19 +123,17 @@ class ProductDetailScreen extends StatelessWidget {
                         style: Theme.of(context).textTheme.displayMedium,
                       ),
                       const SizedBox(height: 10),
-                      _ratingBar(context),
+                      // _ratingBar(context),
                       const SizedBox(height: 10),
                       Row(
                         children: [
                           Text(
-                            product.off != null
-                                ? "\$${product.off}"
-                                : "\$${product.price}",
+                            "\$${product.price}",
                             style: Theme.of(context).textTheme.displayLarge,
                           ),
                           const SizedBox(width: 3),
                           Visibility(
-                            visible: product.off != null ? true : false,
+                            //visible: product.off != null ? true : false,
                             child: Text(
                               "\$${product.price}",
                               style: const TextStyle(
@@ -160,12 +160,12 @@ class ProductDetailScreen extends StatelessWidget {
                       const SizedBox(height: 10),
                       Text(product.about),
                       const SizedBox(height: 20),
-                      SizedBox(
-                        height: 40,
-                        child: GetBuilder<ProductController>(
-                          builder: (_) => productSizesListView(),
-                        ),
-                      ),
+                      // SizedBox(
+                      //   height: 40,
+                      //   // child: GetBuilder<ProductController>(
+                      //   //   builder: (_) => productSizesListView(),
+                      //   // ),
+                      // ),
                       const SizedBox(height: 20),
                       SizedBox(
                         width: double.infinity,

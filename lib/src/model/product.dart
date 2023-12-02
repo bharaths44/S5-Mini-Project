@@ -6,53 +6,43 @@ enum ProductType { all, watch, mobile, headphone, tablet, tv }
 class Product {
   String name;
   int price;
-  int? off;
+  // int? off;
   String about;
   bool isAvailable;
-  ProductSizeType? sizes;
-  int _quantity;
-  List<String> images;
+  //ProductSizeType? sizes;
+  int quantity;
+  String image;
   bool isFavorite;
-  double rating;
-  ProductType type;
-
-  int get quantity => _quantity;
-
-  set quantity(int newQuantity) {
-    if (newQuantity >= 0) _quantity = newQuantity;
-  }
+  //double rating;
+  String type;
+  int stock;
 
   Product({
+    required this.stock,
     required this.name,
     required this.price,
     required this.about,
     required this.isAvailable,
-    this.sizes,
-    required this.off,
-    required int quantity,
-    required this.images,
+    // this.sizes,
+    // required this.off,
+    required this.quantity,
+    required this.image,
     required this.isFavorite,
-    required this.rating,
+    //required this.rating,
     required this.type,
-  }) : _quantity = quantity;
-
-  factory Product.fromFirestore(
-    DocumentSnapshot<Map<String, dynamic>> snapshot,
-   // SnapshotOptions? options,
-  ) {
-    final data = snapshot.data();
+  });
+  factory Product.fromFirestore(DocumentSnapshot<Map<String, dynamic>> doc) {
+    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     return Product(
-      name: data?['name'],
-      price: data?['price'],
-      off: data?['off'],
-      about: data?['about'],
-      isAvailable: data?['isAvailable'],
-      sizes: data?['sizes'],
-      images: data?['images'],
-      quantity: data?['quantity'],
-      isFavorite: data?['isFavorite'],
-      rating: data?['rating'],
-      type: data?['type'],
+      name: data['name'],
+      price: data['price'] ?? 0,
+      about: data['about'],
+      isAvailable: data['isAvailable'] ?? false,
+      quantity: data['quantity'] ?? 0,
+      image: data['image'],
+      isFavorite: data['isFavorite'] ?? false,
+      type: data['type'],
+      stock: data['stock'] ?? 0,
     );
   }
 
@@ -60,17 +50,16 @@ class Product {
     return {
       "name": name,
       "price": price,
-      if (off != null) "off": off,
+      // if (off != null) "off": off,
       "about": about,
       "isAvailable": isAvailable,
-      if (sizes != null) "sizes": sizes,
-      "images": images,
+      //  if (sizes != null) "sizes": sizes,
+      "image": image,
       "quantity": quantity,
       "isFavorite": isFavorite,
-      "rating": rating,
+      //"rating": rating,
       "type": type,
+      "stock": stock,
     };
   }
-
-  
 }
