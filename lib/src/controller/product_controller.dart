@@ -7,7 +7,6 @@ import 'package:e_commerce_flutter/src/model/product.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:e_commerce_flutter/src/model/product_category.dart';
 
-
 class ProductController extends GetxController {
   FirebaseFunctions firebaseFunctions = FirebaseFunctions();
 
@@ -28,17 +27,25 @@ class ProductController extends GetxController {
   Future<void> fetchProducts() async {
     allProducts = await firebaseFunctions.getProducts();
     filteredProducts.value = allProducts;
-    print(allProducts.asMap());
+    print(allProducts.length);
   }
 
-  void filterItemsByCategory(int index) {
+  Future<void> filterItemsByCategory(int index) async {
+    if (allProducts.isEmpty) {
+      await fetchProducts();
+    }
     for (ProductCategory element in categories) {
       element.isSelected = false;
     }
     categories[index].isSelected = true;
 
     if (categories[index].type == "all") {
+      if (allProducts.isEmpty) {
+        await fetchProducts();
+      }
+      print("all");
       filteredProducts.assignAll(allProducts);
+      print(filteredProducts.length);
     } else {
       filteredProducts.assignAll(allProducts.where((item) {
         return item.type == categories[index].type;

@@ -13,27 +13,27 @@ final ProductController controller = Get.put(ProductController());
 class ProductListScreen extends StatelessWidget {
   const ProductListScreen({Key? key}) : super(key: key);
 
-  Widget appBarActionButton(AppbarActionType type) {
-    IconData icon = Icons.ac_unit_outlined;
+  // Widget appBarActionButton(AppbarActionType type) {
+  //   IconData icon = Icons.ac_unit_outlined;
 
-    if (type == AppbarActionType.trailing) {
-      icon = Icons.search;
-    }
+  //   if (type == AppbarActionType.trailing) {
+  //     icon = Icons.search;
+  //   }
 
-    return Container(
-      margin: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: AppColor.lightGrey,
-      ),
-      child: IconButton(
-        padding: const EdgeInsets.all(8),
-        constraints: const BoxConstraints(),
-        onPressed: () {},
-        icon: Icon(icon, color: Colors.black),
-      ),
-    );
-  }
+  //   return Container(
+  //     margin: const EdgeInsets.all(8),
+  //     decoration: BoxDecoration(
+  //       borderRadius: BorderRadius.circular(10),
+  //       color: AppColor.lightGrey,
+  //     ),
+  //     child: IconButton(
+  //       padding: const EdgeInsets.all(8),
+  //       constraints: const BoxConstraints(),
+  //       onPressed: () {},
+  //       icon: Icon(icon, color: Colors.black),
+  //     ),
+  //   );
+  // }
 
   Widget _topCategoriesHeader(BuildContext context) {
     return Padding(
@@ -42,20 +42,9 @@ class ProductListScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Top categories",
+            "Categories",
             style: Theme.of(context).textTheme.headlineMedium,
           ),
-          TextButton(
-            onPressed: () {},
-            style: TextButton.styleFrom(foregroundColor: AppColor.darkOrange),
-            child: Text(
-              "SEE ALL",
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(color: Colors.deepOrange.withOpacity(0.7)),
-            ),
-          )
         ],
       ),
     );
@@ -87,7 +76,7 @@ class ProductListScreen extends StatelessWidget {
               children: [
                 Text(
                   'Hello $username',
-                  style: Theme.of(context).textTheme.displayLarge,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 Text(
                   "Lets gets somethings?",

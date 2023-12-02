@@ -24,13 +24,13 @@ class FirebaseFunctions {
 
   Future<List<Product>> getProducts() async {
     try {
-      print("In getProducts");
+     
       await db.collection(dbRef1).get().then((snapshot) {
         for (var doc in snapshot.docs) {
           products.add(Product.fromFirestore(doc));
         }
       });
-      print(products);
+      
     } catch (e) {
       print('Error getting products: $e');
     }

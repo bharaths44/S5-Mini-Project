@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
-enum ProductType { all, watch, mobile, headphone, tablet, tv }
+//enum ProductType { all, watch, mobile, headphone, tablet, tv }
 
 class Product {
   String name;
