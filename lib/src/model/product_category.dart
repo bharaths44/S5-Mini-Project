@@ -1,5 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce_flutter/src/model/product.dart';
+
 import 'package:flutter/material.dart' show IconData;
 
 class ProductCategory {

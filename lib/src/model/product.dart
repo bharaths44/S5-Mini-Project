@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce_flutter/src/model/product_size_type.dart';
+
 
 enum ProductType { all, watch, mobile, headphone, tablet, tv }
 

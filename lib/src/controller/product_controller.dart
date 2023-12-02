@@ -1,11 +1,12 @@
 import 'package:e_commerce_flutter/src/controller/firebase_functions.dart';
+
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:e_commerce_flutter/core/app_data.dart';
 import 'package:e_commerce_flutter/src/model/product.dart';
-import 'package:e_commerce_flutter/src/model/numerical.dart';
+
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:e_commerce_flutter/src/model/product_category.dart';
-import 'package:e_commerce_flutter/src/model/product_size_type.dart';
+
 
 class ProductController extends GetxController {
   FirebaseFunctions firebaseFunctions = FirebaseFunctions();
@@ -43,6 +44,7 @@ class ProductController extends GetxController {
         return item.type == categories[index].type;
       }).toList());
     }
+
     update();
   }
 

@@ -2,14 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:e_commerce_flutter/src/model/product.dart';
 import 'package:e_commerce_flutter/src/model/product_category.dart';
-import 'package:e_commerce_flutter/src/model/product_size_type.dart';
 
 class FirebaseFunctions {
   String dbRef1 = 'product';
   String dbRef2 = 'product_category';
   String dbRef3 = 'product_size_type';
   List<ProductCategory> categories = [];
-  List<ProductSizeType> sizeTypes = [];
+
   List<Product> products = [];
   FirebaseFirestore db = FirebaseFirestore.instance;
 
@@ -22,16 +21,6 @@ class FirebaseFunctions {
 
   //   return categories;
   // }
-
-  Future<List<ProductSizeType>> getProductSizeTypes() async {
-    await db.collection(dbRef3).get().then((snapshot) {
-      for (var doc in snapshot.docs) {
-        sizeTypes.add(ProductSizeType.fromFirestore(doc));
-      }
-    });
-
-    return sizeTypes;
-  }
 
   Future<List<Product>> getProducts() async {
     try {

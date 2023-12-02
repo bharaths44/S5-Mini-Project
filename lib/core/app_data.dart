@@ -1,11 +1,7 @@
 import 'package:e_commerce_flutter/src/model/bottom_navy_bar_item.dart';
 
-import 'package:e_commerce_flutter/src/model/product_size_type.dart';
 import 'package:e_commerce_flutter/src/model/product_category.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:e_commerce_flutter/src/model/categorical.dart';
-import 'package:e_commerce_flutter/src/model/numerical.dart';
-import 'package:e_commerce_flutter/src/model/product.dart';
 import 'package:flutter/material.dart';
 
 class AppData {

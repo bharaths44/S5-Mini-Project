@@ -6,7 +6,6 @@ class ProductGridView extends StatelessWidget {
   const ProductGridView({
     Key? key,
     required this.items,
-    
     required this.likeButtonPressed,
   }) : super(key: key);
 
