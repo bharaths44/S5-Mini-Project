@@ -34,6 +34,7 @@ class ProductListScreen extends StatelessWidget {
   //     ),
   //   );
   // }
+  
 
   Widget _topCategoriesHeader(BuildContext context) {
     return Padding(

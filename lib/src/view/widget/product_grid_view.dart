@@ -12,41 +12,25 @@ class ProductGridView extends StatelessWidget {
   final List<Product> items;
 
   final void Function(int index) likeButtonPressed;
-
-  //   return Padding(
-  //     padding: const EdgeInsets.all(10.0),
-  //     child: Row(
-  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //       children: [
-  //         Visibility(
-  //           // visible: isPriceOff(product),
-  //           child: Container(
-  //             decoration: BoxDecoration(
-  //               borderRadius: BorderRadius.circular(30),
-  //               color: Colors.white,
-  //             ),
-  //             width: 80,
-  //             height: 30,
-  //             alignment: Alignment.center,
-  //             child: const Text(
-  //               "30% OFF",
-  //               style: TextStyle(fontWeight: FontWeight.w600),
-  //             ),
-  //           ),
-  //         ),
-  //         IconButton(
-  //           icon: Icon(
-  //             Icons.favorite,
-  //             color: items[index].isFavorite
-  //                 ? Colors.redAccent
-  //                 : const Color(0xFFA6A3A0),
-  //           ),
-  //           onPressed: () => likeButtonPressed(index),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
+  Widget _gridItemHeader(Product product, int index) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          IconButton(
+            icon: Icon(
+              Icons.favorite,
+              color: items[index].isFavorite
+                  ? Colors.redAccent
+                  : const Color(0xFFA6A3A0),
+            ),
+            onPressed: () => likeButtonPressed(index),
+          ),
+        ],
+      ),
+    );
+  }
 
   Widget _gridItemBody(Product product) {
     return Container(
@@ -89,7 +73,6 @@ class ProductGridView extends StatelessWidget {
                 ),
               ),
             ),
-            // const SizedBox(height: 5),
             Row(
               children: [
                 Text("\$${product.price}",
@@ -97,18 +80,6 @@ class ProductGridView extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                       fontSize: 17,
                     )),
-                // const SizedBox(width: 3),
-                // Visibility(
-                //   //  visible: product.off != null ? true : false,
-                //   child: Text(
-                //     "\$${product.price}",
-                //     style: const TextStyle(
-                //       decoration: TextDecoration.lineThrough,
-                //       color: Colors.grey,
-                //       fontWeight: FontWeight.w500,
-                //     ),
-                //   ),
-                // )
               ],
             )
           ],
@@ -136,7 +107,7 @@ class ProductGridView extends StatelessWidget {
           return OpenContainerWrapper(
             product: product,
             child: GridTile(
-              //header: _gridItemHeader(product, index),
+              header: _gridItemHeader(product, index),
               footer: _gridItemFooter(product, context),
               child: _gridItemBody(product),
             ),

@@ -49,62 +49,64 @@ class ProductDetailScreen extends StatelessWidget {
         extendBodyBehindAppBar: true,
         appBar: _appBar(context),
         body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              productPageView(width, height),
-              const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      product.name,
-                      style: Theme.of(context).textTheme.displayMedium,
-                    ),
-                    const SizedBox(height: 10),
-                    // _ratingBar(context),
-                    const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        Text(
-                          "\$${product.price}",
-                          style: Theme.of(context).textTheme.displayLarge,
-                        ),
-                        const SizedBox(width: 3),
-                        const Spacer(),
-                        Text(
-                          product.isAvailable
-                              ? "Available in stock"
-                              : "Not available",
-                          style: const TextStyle(fontWeight: FontWeight.w500),
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 30),
-                    Text(
-                      "About",
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                    const SizedBox(height: 10),
-                    Text(product.about),
-                    const SizedBox(height: 20),
-
-                    const SizedBox(height: 20),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: product.isAvailable
-                            ? () => controller.addToCart(product)
-                            : null,
-                        child: const Text("Add to cart"),
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                productPageView(width, height),
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        product.name,
+                        style: Theme.of(context).textTheme.displayMedium,
                       ),
-                    )
-                  ],
-                ),
-              )
-            ],
+                      const SizedBox(height: 10),
+                      // _ratingBar(context),
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Text(
+                            "\$${product.price}",
+                            style: Theme.of(context).textTheme.displayLarge,
+                          ),
+                          const SizedBox(width: 3),
+                          const Spacer(),
+                          Text(
+                            product.isAvailable
+                                ? "Available in stock"
+                                : "Not available",
+                            style: const TextStyle(fontWeight: FontWeight.w500),
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 30),
+                      Text(
+                        "About",
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                      const SizedBox(height: 10),
+                      Text(product.about),
+                      const SizedBox(height: 20),
+
+                      const SizedBox(height: 20),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: product.isAvailable
+                              ? () => controller.addToCart(product)
+                              : null,
+                          child: const Text("Add to cart"),
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
