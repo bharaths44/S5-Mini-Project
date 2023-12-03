@@ -1,4 +1,3 @@
-import 'package:e_commerce_flutter/src/model/bottom_navy_bar_item.dart';
 
 import 'package:e_commerce_flutter/src/model/product_category.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -47,30 +46,5 @@ class AppData {
     const Color(0xFFECEFF1),
   ];
 
-  static List<BottomNavyBarItem> bottomNavyBarItems = [
-    BottomNavyBarItem(
-      "Home",
-      const Icon(Icons.home),
-      const Color(0xFFEC6813),
-      Colors.grey,
-    ),
-    BottomNavyBarItem(
-      "Favorite",
-      const Icon(Icons.favorite),
-      const Color(0xFFEC6813),
-      Colors.grey,
-    ),
-    BottomNavyBarItem(
-      "Cart",
-      const Icon(Icons.shopping_cart),
-      const Color(0xFFEC6813),
-      Colors.grey,
-    ),
-    BottomNavyBarItem(
-      "Profile",
-      const Icon(Icons.person),
-      const Color(0xFFEC6813),
-      Colors.grey,
-    ),
-  ];
+  
 }

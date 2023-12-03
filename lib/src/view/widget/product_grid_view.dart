@@ -40,8 +40,9 @@ class ProductGridView extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
         ),
         child: Image(
-          image: NetworkImage(product.image,
-              headers: {'Cache-Control': 'no-cache'}),
+          image: NetworkImage(
+            product.image,
+          ),
         ));
   }
 

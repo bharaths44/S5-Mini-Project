@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_flutter/src/model/product.dart';
-import 'package:e_commerce_flutter/src/view/widget/page_wrapper.dart';
 import 'package:e_commerce_flutter/src/controller/product_controller.dart';
 
 final ProductController controller = Get.put(ProductController());
