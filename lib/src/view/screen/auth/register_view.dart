@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:e_commerce_flutter/src/view/widget/inputfield.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,6 +9,7 @@ class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _RegisterViewState createState() => _RegisterViewState();
 }
 
@@ -31,44 +33,30 @@ class _RegisterViewState extends State<RegisterView> {
           key: _formKey,
           child: Column(
             children: [
-              TextFormField(
-                controller: _emailController,
-                decoration: const InputDecoration(labelText: 'Email'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _passwordController,
-                decoration: const InputDecoration(labelText: 'Password'),
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
+               InputField(
+            name: 'Email',
+            controller: _emailController,
+            labelText: 'Enter Email',
+          ),
+               InputField(
+            name: 'Password',
+            controller: _passwordController,
+            labelText: 'Enter Password',
+          ),
+              InputField(
+                name: 'Name',
                 controller: _nameController,
-                decoration: const InputDecoration(labelText: 'Name'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your name';
-                  }
-                  return null;
-                },
+                labelText: 'Enter Name',
               ),
-              TextFormField(
+              InputField(
                 controller: _addressController,
-                decoration: const InputDecoration(labelText: 'Address'),
+                name: 'Address',
+                labelText: 'Enter Address',
               ),
-              TextFormField(
+              InputField(
+                labelText: 'Enter Phone Number',
                 controller: _phoneNumberController,
-                decoration: const InputDecoration(labelText: 'Phone Number'),
+                name: 'Phone Number',
               ),
               ElevatedButton(
                 onPressed: () async {
@@ -133,8 +121,8 @@ class _RegisterViewState extends State<RegisterView> {
         });
       }
     } catch (e) {
-      // Handle errors here (e.g., display an error message to the user)
-      print('Error during sign up: $e');
+       ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Error: ${e.toString()}')));
     }
   }
 }

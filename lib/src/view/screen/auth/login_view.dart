@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:e_commerce_flutter/src/view/widget/inputfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -39,21 +40,10 @@ class _LoginViewState extends State<LoginView> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          TextField(
+          InputField(
+            name: 'Email',
             controller: _email,
-            enableSuggestions: false,
-            autocorrect: false,
-            keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(
-                labelText: 'Enter email',
-                enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        const BorderSide(width: 4, color: Colors.amberAccent),
-                    borderRadius: BorderRadius.circular(25)),
-                focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        const BorderSide(width: 4, color: Colors.amberAccent),
-                    borderRadius: BorderRadius.circular(25))),
+            labelText: 'Enter Email',
           ),
           const Divider(
             color: Colors.transparent,
@@ -62,23 +52,13 @@ class _LoginViewState extends State<LoginView> {
             indent: 20,
             endIndent: 20,
           ),
-          TextField(
+          InputField(
+            name: 'Password',
             controller: _password,
             obscureText: true,
-            enableSuggestions: false,
-            autocorrect: false,
-            decoration: InputDecoration(
-                labelText: "Enter password",
-                enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        const BorderSide(width: 4, color: Colors.amberAccent),
-                    borderRadius: BorderRadius.circular(25)),
-                focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        const BorderSide(width: 4, color: Colors.amberAccent),
-                    borderRadius: BorderRadius.circular(25))),
+            labelText: 'Enter password',
           ),
-          TextButton(
+          ElevatedButton(
             onPressed: () async {
               final email = _email.text;
               final password = _password.text;
@@ -120,11 +100,10 @@ class _LoginViewState extends State<LoginView> {
             },
             child: const Text("Login"),
           ),
-          TextButton(
+          ElevatedButton(
             onPressed: () {
-              Navigator.of(context).pushNamedAndRemoveUntil(
+              Navigator.of(context).pushNamed(
                 '/register/',
-                (route) => false,
               );
             },
             child: const Text("Register here"),
