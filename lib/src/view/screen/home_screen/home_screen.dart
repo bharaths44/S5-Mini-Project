@@ -1,9 +1,9 @@
 import 'package:e_commerce_flutter/src/controller/home_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:e_commerce_flutter/src/view/screen/cart_screen.dart';
-import 'package:e_commerce_flutter/src/view/screen/profile_screen.dart';
-import 'package:e_commerce_flutter/src/view/screen/favorite_screen.dart';
-import 'package:e_commerce_flutter/src/view/screen/product_list_screen.dart';
+import 'package:e_commerce_flutter/src/view/screen/cart_screen/cart_screen.dart';
+import 'package:e_commerce_flutter/src/view/screen/profile_screen/profile_screen.dart';
+import 'package:e_commerce_flutter/src/view/screen/favorite_screen/favorite_screen.dart';
+import 'package:e_commerce_flutter/src/view/screen/home_screen/product_list_screen.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends StatelessWidget {

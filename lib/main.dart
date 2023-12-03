@@ -1,8 +1,8 @@
 import 'package:e_commerce_flutter/firebase_options.dart';
-import 'package:e_commerce_flutter/src/view/screen/home_screen.dart';
-import 'package:e_commerce_flutter/src/view/screen/login_view.dart';
-import 'package:e_commerce_flutter/src/view/screen/register_view.dart';
-import 'package:e_commerce_flutter/src/view/screen/verify_email_view.dart';
+import 'package:e_commerce_flutter/src/view/screen/home_screen/home_screen.dart';
+import 'package:e_commerce_flutter/src/view/screen/auth/login_view.dart';
+import 'package:e_commerce_flutter/src/view/screen/auth/register_view.dart';
+import 'package:e_commerce_flutter/src/view/screen/auth/verify_email_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
