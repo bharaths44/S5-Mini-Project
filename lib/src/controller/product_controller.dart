@@ -1,4 +1,5 @@
 import 'package:e_commerce_flutter/src/controller/firebase_functions.dart';
+import 'package:get/get.dart';
 
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:e_commerce_flutter/core/app_data.dart';
@@ -28,6 +29,7 @@ class ProductController extends GetxController {
     allProducts = await firebaseFunctions.getProducts();
     filteredProducts.value = allProducts;
     print(allProducts.length);
+    await filterItemsByCategory(1);
   }
 
   Future<void> filterItemsByCategory(int index) async {
@@ -44,7 +46,8 @@ class ProductController extends GetxController {
         await fetchProducts();
       }
       print("all");
-      filteredProducts.assignAll(allProducts);
+      //filteredProducts.assignAll(allProducts);
+      filteredProducts.value = allProducts; // Add this line
       print(filteredProducts.length);
     } else {
       filteredProducts.assignAll(allProducts.where((item) {
@@ -61,10 +64,21 @@ class ProductController extends GetxController {
   }
 
   void addToCart(Product product) {
-    product.quantity++;
-    cartProducts.add(product);
-    cartProducts.assignAll(cartProducts);
+    var foundProduct =
+        cartProducts.firstWhereOrNull((p) => p.name == product.name);
+
+    if (foundProduct != null) {
+      foundProduct.quantity++;
+    } else {
+      product.quantity = 1;
+      cartProducts.add(product);
+    }
+
+    print("In add to cart");
+    print(cartProducts.length);
     calculateTotalPrice();
+    print('Price $totalPrice');
+    update();
   }
 
   void increaseItemQuantity(Product product) {
@@ -79,20 +93,12 @@ class ProductController extends GetxController {
     update();
   }
 
-  // bool isPriceOff(Product product) => product.off != null;
-
   bool get isEmptyCart => cartProducts.isEmpty;
-
-  // bool isNominal(Product product) => product.sizes?.numerical != null;
 
   void calculateTotalPrice() {
     totalPrice.value = 0;
     for (var element in cartProducts) {
-      // if (isPriceOff(element)) {
-      //   totalPrice.value += element.quantity * element.off!;
-      // } else {
       totalPrice.value += element.quantity * element.price;
-      // }
     }
   }
 
@@ -111,72 +117,4 @@ class ProductController extends GetxController {
   getAllItems() {
     filteredProducts.assignAll(allProducts);
   }
-
-  // List<Numerical> sizeType(Product product) {
-  //   ProductSizeType? productSize = product.sizes;
-  //   List<Numerical> numericalList = [];
-
-  //   if (productSize?.numerical != null) {
-  //     for (var element in productSize!.numerical!) {
-  //       numericalList.add(Numerical(element.numerical, element.isSelected));
-  //     }
-  //   }
-
-  //   if (productSize?.categorical != null) {
-  //     for (var element in productSize!.categorical!) {
-  //       numericalList.add(
-  //         Numerical(
-  //           element.categorical.name,
-  //           element.isSelected,
-  //         ),
-  //       );
-  //     }
-  //   }
-
-  //   return numericalList;
-  // }
-
-  // void switchBetweenProductSizes(Product product, int index) {
-  //   sizeType(product).forEach((element) {
-  //     element.isSelected = false;
-  //   });
-
-  //   if (product.sizes?.categorical != null) {
-  //     for (var element in product.sizes!.categorical!) {
-  //       element.isSelected = false;
-  //     }
-
-  //     product.sizes?.categorical![index].isSelected = true;
-  //   }
-
-  //   if (product.sizes?.numerical != null) {
-  //     for (var element in product.sizes!.numerical!) {
-  //       element.isSelected = false;
-  //     }
-
-  //     product.sizes?.numerical![index].isSelected = true;
-  //   }
-
-  //   update();
-  // }
-
-  // String getCurrentSize(Product product) {
-  //   String currentSize = "";
-  //   if (product.sizes?.categorical != null) {
-  //     for (var element in product.sizes!.categorical!) {
-  //       if (element.isSelected) {
-  //         currentSize = "Size: ${element.categorical.name}";
-  //       }
-  //     }
-  //   }
-
-  //   if (product.sizes?.numerical != null) {
-  //     for (var element in product.sizes!.numerical!) {
-  //       if (element.isSelected) {
-  //         currentSize = "Size: ${element.numerical}";
-  //       }
-  //     }
-  //   }
-  //   return currentSize;
-  // }
 }

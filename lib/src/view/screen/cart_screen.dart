@@ -54,43 +54,12 @@ class CartScreen extends StatelessWidget {
                           child: Image(
                               width: 50,
                               height: 50,
-                              image: NetworkImage(product.image,
-                                  headers: {'Cache-Control': 'no-cache'}))),
+                              image: NetworkImage(
+                                product.image,
+                              ))),
                     ),
                   ),
                 ),
-                // Column(
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   children: [
-                //     Text(
-                //       product.name.nextLine,
-                //       maxLines: 2,
-                //       overflow: TextOverflow.ellipsis,
-                //       style: const TextStyle(
-                //         fontWeight: FontWeight.w600,
-                //         fontSize: 15,
-                //       ),
-                //     ),
-                //     const SizedBox(height: 5),
-                //     Text(
-                //     //  controller.getCurrentSize(product),
-                //       style: TextStyle(
-                //         color: Colors.black.withOpacity(0.5),
-                //         fontWeight: FontWeight.w400,
-                //       ),
-                //     ),
-                //     const SizedBox(height: 5),
-                //     Text(
-                //       controller.isPriceOff(product)
-                //           ? "\$${product.off}"
-                //           : "\$${product.price}",
-                //       style: const TextStyle(
-                //         fontWeight: FontWeight.w900,
-                //         fontSize: 23,
-                //       ),
-                //     ),
-                //   ],
-                // ),
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -180,7 +149,7 @@ class CartScreen extends StatelessWidget {
         padding: const EdgeInsets.only(left: 30, right: 30, bottom: 20),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(padding: const EdgeInsets.all(20)),
-          onPressed: controller.isEmptyCart ? null : () {},
+          onPressed: controller.cartProducts.isEmpty ? null : () {},
           child: const Text("Buy Now"),
         ),
       ),
@@ -189,14 +158,19 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    controller.getCartItems();
     return Scaffold(
       appBar: _appBar(context),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
-            child: !controller.isEmptyCart ? cartList() : const EmptyCart(),
+            child: Obx(() {
+              if (controller.cartProducts.isEmpty) {
+                return const EmptyCart();
+              } else {
+                return cartList();
+              }
+            }),
           ),
           bottomBarTitle(),
           bottomBarButton()
