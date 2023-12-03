@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
         body: SafeArea(
           child: IndexedStack(
             index: controller.tabIndex.value,
-            children: const [
+            children: [
               ProductListScreen(),
               FavoriteScreen(),
               CartScreen(),

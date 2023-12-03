@@ -1,164 +1,140 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterView extends StatefulWidget {
-  const RegisterView({Key? key}) : super(key: key);
+  const RegisterView({super.key});
 
   @override
-  State<RegisterView> createState() => _RegisterViewState();
+  _RegisterViewState createState() => _RegisterViewState();
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  late final TextEditingController _email;
-  late final TextEditingController _password;
-  late final TextEditingController _displayName;
-  bool _isLoading = false; // Added loading indicator state
-
-  @override
-  void initState() {
-    _email = TextEditingController();
-    _password = TextEditingController();
-    _displayName = TextEditingController();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _email.dispose();
-    _password.dispose();
-    _displayName.dispose();
-    super.dispose();
-  }
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _addressController = TextEditingController();
+  final _phoneNumberController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Register View"),
-        backgroundColor: Colors.amber,
+        title: const Text('Sign Up'),
       ),
-      body: _isLoading
-          ? Center(
-              child: CircularProgressIndicator(), // Loading indicator
-            )
-          : Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                TextField(
-                  controller: _displayName,
-                  decoration: InputDecoration(
-                    hintText: 'Enter display name',
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(width: 4, color: Colors.amberAccent),
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(width: 4, color: Colors.amberAccent),
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                  ),
-                ),
-                TextField(
-                  controller: _email,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    hintText: 'Enter email',
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(width: 4, color: Colors.amberAccent),
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(width: 4, color: Colors.amberAccent),
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                  ),
-                ),
-                TextField(
-                  controller: _password,
-                  obscureText: true,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  decoration: InputDecoration(
-                    hintText: "Enter password",
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(width: 4, color: Colors.amberAccent),
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(width: 4, color: Colors.amberAccent),
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () async {
-                    setState(() {
-                      _isLoading = true; // Show loading indicator
-                    });
-
-                    final displayName = _displayName.text;
-                    final email = _email.text;
-                    final password = _password.text;
-
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: _emailController,
+                decoration: const InputDecoration(labelText: 'Email'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your email';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _passwordController,
+                decoration: const InputDecoration(labelText: 'Password'),
+                obscureText: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your password';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _nameController,
+                decoration: const InputDecoration(labelText: 'Name'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your name';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _addressController,
+                decoration: const InputDecoration(labelText: 'Address'),
+              ),
+              TextFormField(
+                controller: _phoneNumberController,
+                decoration: const InputDecoration(labelText: 'Phone Number'),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
                     try {
-                      final userCredential = await FirebaseAuth.instance
-                          .createUserWithEmailAndPassword(
-                        email: email,
-                        password: password,
+                      await signUp(
+                        _emailController.text,
+                        _passwordController.text,
+                        _nameController.text,
+                        _addressController.text,
+                        _phoneNumberController.text,
+                        false, // Set isAdmin to false for regular users
+                        [], // Empty favorites list initially
+                        [], // Empty cart initially
                       );
-
-                      await userCredential.user?.updateDisplayName(displayName);
-
-                      // Navigate to the verification email route
-                      Navigator.of(context)
-                          .pushReplacementNamed('/verifyemail/');
-                    } on FirebaseAuthException catch (e) {
-                      String errorMessage = 'An error occurred.';
-
-                      if (e.code == 'weak-password') {
-                        errorMessage = 'The password provided is too weak.';
-                      } else if (e.code == 'email-already-in-use') {
-                        errorMessage =
-                            'The account already exists for that email.';
-                      } else if (e.code == 'invalid-email') {
-                        errorMessage = 'Invalid email address.';
-                      }
-
-                      // Show a snackbar with the error message
+                      // Show a SnackBar with a success message
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(errorMessage),
-                          backgroundColor: Colors.red,
-                        ),
+                        const SnackBar(
+                            content: Text('Successfully registered')),
                       );
-                    } finally {
-                      setState(() {
-                        _isLoading = false; // Hide loading indicator
-                      });
+                      // Navigate to the login page
+                      Navigator.of(context).pushNamed('/verifyemail/');
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Error: ${e.toString()}')));
                     }
-                  },
-                  child: const Text("Register"),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                      '/login/',
-                      (route) => false,
-                    );
-                  },
-                  child: const Text("Back to Login Screen"),
-                )
-              ],
-            ),
+                  }
+                },
+                child: const Text('Sign Up'),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
+  }
+
+  Future signUp(
+    String email,
+    String password,
+    String name,
+    String address,
+    String phoneNumber,
+    bool isAdmin,
+    List favorites,
+    List cart,
+  ) async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+
+      User? user = userCredential.user;
+
+      if (user != null) {
+        await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+          'name': name,
+          'address': address,
+          'phoneNumber': phoneNumber,
+          'isAdmin': isAdmin,
+          'favorites': favorites,
+          'cart': cart,
+        });
+      }
+    } catch (e) {
+      // Handle errors here (e.g., display an error message to the user)
+      print('Error during sign up: $e');
+    }
   }
 }

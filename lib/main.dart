@@ -26,7 +26,7 @@ void main() async {
         '/login/': (context) => const LoginView(),
         '/register/': (context) => const RegisterView(),
         '/home/': (context) => HomeScreen(),
-        '/verifyemail/': (context) => const VerifyEmailView(),
+        '/verifyemail/': (context) => VerifyEmailView(),
       },
     ),
   );
@@ -56,7 +56,7 @@ class HomePage extends StatelessWidget {
                   body: Center(child: Text("Email is verified")),
                 );
               } else {
-                return const VerifyEmailView();
+                return VerifyEmailView();
               }
             } else {
               return const LoginView();

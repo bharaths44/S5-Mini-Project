@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -85,8 +87,12 @@ class _LoginViewState extends State<LoginView> {
                 await FirebaseAuth.instance.signInWithEmailAndPassword(
                     email: email, password: password);
 
-                // Check if user is logged in
-                if (FirebaseAuth.instance.currentUser != null) {
+                User? user = FirebaseAuth.instance.currentUser;
+                if (user != null && !user.emailVerified) {
+                  // If the email is not verified, navigate to the verify email page
+                  Navigator.of(context).pushNamed('/verifyemail/');
+                } else if (user != null && user.emailVerified) {
+                  // If the email is verified, navigate to the home page
                   Navigator.of(context).pushNamedAndRemoveUntil(
                     '/home/',
                     (route) => false,
@@ -108,7 +114,6 @@ class _LoginViewState extends State<LoginView> {
                     content: Text(
                       'Error: ${e.toString()}',
                     ),
-                    backgroundColor: Colors.red,
                   ),
                 );
               }
