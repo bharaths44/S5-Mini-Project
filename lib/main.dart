@@ -1,8 +1,8 @@
 import 'package:e_commerce_flutter/firebase_options.dart';
+import 'package:e_commerce_flutter/src/view/screen/auth/login/login_screen.dart';
 import 'package:e_commerce_flutter/src/view/screen/home_screen/home_screen.dart';
-import 'package:e_commerce_flutter/src/view/screen/auth/login_view.dart';
-import 'package:e_commerce_flutter/src/view/screen/auth/register_view.dart';
-import 'package:e_commerce_flutter/src/view/screen/auth/verify_email_view.dart';
+import 'package:e_commerce_flutter/src/view/screen/auth/register/register_view.dart';
+import 'package:e_commerce_flutter/src/view/screen/auth/verify_email/verify_email_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +23,7 @@ void main() async {
       ),
       home: HomeScreen(),
       routes: {
-        '/login/': (context) => const LoginView(),
+        '/login/': (context) => LoginScreen(),
         '/register/': (context) => const RegisterView(),
         '/home/': (context) => HomeScreen(),
         '/verifyemail/': (context) => VerifyEmailView(),
@@ -59,7 +59,7 @@ class HomePage extends StatelessWidget {
                 return VerifyEmailView();
               }
             } else {
-              return const LoginView();
+              return LoginScreen();
             }
           default:
             return const Center(child: CircularProgressIndicator.adaptive());

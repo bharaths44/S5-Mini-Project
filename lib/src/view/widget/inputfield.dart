@@ -5,13 +5,14 @@ class InputField extends StatelessWidget {
   final String labelText;
   final bool obscureText;
   final String name;
-
+  final Icon? icon;
   const InputField({
     super.key,
     required this.controller,
     required this.labelText,
     this.obscureText = false,
     required this.name,
+    this.icon,
   });
 
   @override
@@ -21,13 +22,8 @@ class InputField extends StatelessWidget {
       autocorrect: false,
       enableSuggestions: false,
       decoration: InputDecoration(
-        labelText: labelText,
-        // enabledBorder: OutlineInputBorder(
-        //     borderSide: const BorderSide(width: 4, color: Colors.amberAccent),
-        //     borderRadius: BorderRadius.circular(25)),
-        // focusedBorder: OutlineInputBorder(
-        //     borderSide: const BorderSide(width: 4, color: Colors.amberAccent),
-        //     borderRadius: BorderRadius.circular(25))
+        hintText: labelText,
+        prefixIcon: icon,
       ),
       obscureText: obscureText,
       validator: (value) {
