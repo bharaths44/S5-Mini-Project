@@ -37,7 +37,7 @@ class ProductListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
-   var username = user?.displayName ?? "Guest";
+
     controller.getAllItems();
     return FutureBuilder<String>(
       future: getUserName(user),
