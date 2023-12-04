@@ -1,11 +1,9 @@
 import 'package:e_commerce_flutter/src/controller/firebase_functions.dart';
 import 'package:get/get.dart';
 
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:e_commerce_flutter/core/app_data.dart';
 import 'package:e_commerce_flutter/src/model/product.dart';
 
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:e_commerce_flutter/src/model/product_category.dart';
 
 class ProductController extends GetxController {
@@ -45,9 +43,8 @@ class ProductController extends GetxController {
       if (allProducts.isEmpty) {
         await fetchProducts();
       }
-      print("all");
-      //filteredProducts.assignAll(allProducts);
-      filteredProducts.value = allProducts; // Add this line
+
+      filteredProducts.value = allProducts;
       print(filteredProducts.length);
     } else {
       filteredProducts.assignAll(allProducts.where((item) {

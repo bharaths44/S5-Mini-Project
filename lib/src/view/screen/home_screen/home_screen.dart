@@ -1,3 +1,4 @@
+import 'package:e_commerce_flutter/src/controller/product_controller.dart';
 import 'package:e_commerce_flutter/src/view/screen/home_screen/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_flutter/src/view/screen/cart_screen/cart_screen.dart';
@@ -27,28 +28,32 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
-            fixedColor: const Color(0xFFEC6813),
-            unselectedItemColor: Colors.grey,
-            currentIndex: controller.tabIndex.value,
-            items: const [
-              BottomNavigationBarItem(
-                label: "Home",
-                icon: Icon(Icons.home),
-              ),
-              BottomNavigationBarItem(
-                label: "Favorite",
-                icon: Icon(Icons.favorite),
-              ),
-              BottomNavigationBarItem(
-                label: "Cart",
-                icon: Icon(Icons.shopping_cart),
-              ),
-              BottomNavigationBarItem(
-                label: "Profile",
-                icon: Icon(Icons.person),
-              ),
-            ],
-            onTap: controller.changeTabIndex),
+          fixedColor: const Color(0xFFEC6813),
+          unselectedItemColor: Colors.grey,
+          currentIndex: controller.tabIndex.value,
+          items: const [
+            BottomNavigationBarItem(
+              label: "Home",
+              icon: Icon(Icons.home),
+            ),
+            BottomNavigationBarItem(
+              label: "Favorite",
+              icon: Icon(Icons.favorite),
+            ),
+            BottomNavigationBarItem(
+              label: "Cart",
+              icon: Icon(Icons.shopping_cart),
+            ),
+            BottomNavigationBarItem(
+              label: "Profile",
+              icon: Icon(Icons.person),
+            ),
+          ],
+          onTap: (index) {
+            controller.changeTabIndex(index);
+            Get.find<ProductController>().fetchProducts();
+          },
+        ),
       );
     });
   }

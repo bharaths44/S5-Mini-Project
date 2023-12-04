@@ -22,9 +22,9 @@ class FavoriteScreen extends StatelessWidget {
         child: GetBuilder(
           builder: (ProductController controller) {
             return ProductGridView(
-              items: controller.filteredProducts,
-              likeButtonPressed: (index) => controller.isFavorite(index),
-            );
+                items: controller.filteredProducts,
+                likeButtonPressed: (index) => controller.isFavorite(index),
+                );
           },
         ),
       ),

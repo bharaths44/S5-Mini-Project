@@ -1,4 +1,5 @@
 import 'package:e_commerce_flutter/firebase_options.dart';
+import 'package:e_commerce_flutter/src/controller/product_controller.dart';
 import 'package:e_commerce_flutter/src/view/screen/auth/forgot_password/forgot_password_screen.dart';
 import 'package:e_commerce_flutter/src/view/screen/auth/login/login_screen.dart';
 import 'package:e_commerce_flutter/src/view/screen/auth/register/register_screen.dart';
@@ -14,6 +15,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  Get.put(ProductController());
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,

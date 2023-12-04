@@ -37,7 +37,7 @@ class ProductListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
-
+   var username = user?.displayName ?? "Guest";
     controller.getAllItems();
     return FutureBuilder<String>(
       future: getUserName(user),
@@ -47,7 +47,7 @@ class ProductListScreen extends StatelessWidget {
             body: Center(
               child: CircularProgressIndicator(),
             ),
-          ); // Show loading indicator for the whole page while waiting
+          );
         } else {
           String username = snapshot.data ?? "Guest";
           return Scaffold(
