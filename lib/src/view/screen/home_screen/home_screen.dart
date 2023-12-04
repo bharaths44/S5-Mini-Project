@@ -1,4 +1,4 @@
-import 'package:e_commerce_flutter/src/controller/home_controller.dart';
+import 'package:e_commerce_flutter/src/view/screen/home_screen/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_flutter/src/view/screen/cart_screen/cart_screen.dart';
 import 'package:e_commerce_flutter/src/view/screen/profile_screen/profile_screen.dart';
@@ -20,9 +20,9 @@ class HomeScreen extends StatelessWidget {
             index: controller.tabIndex.value,
             children: [
               ProductListScreen(),
-              FavoriteScreen(),
-              CartScreen(),
-              ProfileScreen()
+              const FavoriteScreen(),
+              const CartScreen(),
+              const ProfileScreen()
             ],
           ),
         ),

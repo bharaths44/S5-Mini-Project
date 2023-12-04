@@ -1,0 +1,74 @@
+import 'package:e_commerce_flutter/src/view/screen/auth/register/register_controller.dart';
+import 'package:e_commerce_flutter/src/view/widget/inputfield.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+final RegisterController controller = Get.put(RegisterController());
+
+class RegisterCard extends StatelessWidget {
+  const RegisterCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Container(
+        height: Get.height * 0.7,
+        width: Get.width * 0.8,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(7),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              spreadRadius: 10,
+              blurRadius: 5,
+              offset: const Offset(0, 0), // changes x,y position of shadow
+            ),
+          ],
+        ),
+        padding: const EdgeInsets.fromLTRB(45, 10, 45, 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            InputField(
+              name: 'Email',
+              controller: controller.email,
+              labelText: 'Enter Email',
+              icon: const Icon(Icons.email_outlined),
+            ),
+            InputField(
+              name: 'Password',
+              controller: controller.password,
+              labelText: 'Enter Password',
+              icon: const Icon(Icons.lock_outline_sharp),
+            ),
+            InputField(
+              name: 'Name',
+              controller: controller.name,
+              labelText: 'Enter Name',
+              icon: const Icon(Icons.person_outline_outlined),
+            ),
+            InputField(
+              controller: controller.address,
+              name: 'Address',
+              labelText: 'Enter Address',
+              icon: const Icon(Icons.location_on_outlined),
+            ),
+            InputField(
+              labelText: 'Enter Phone Number',
+              controller: controller.phoneNumber,
+              name: 'Phone Number',
+              icon: const Icon(Icons.phone_outlined),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                controller.signUp();
+              },
+              child: const Text('Sign Up'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

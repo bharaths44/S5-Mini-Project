@@ -5,12 +5,16 @@ import 'package:get/get.dart';
 class LoginController extends GetxController {
   final email = TextEditingController();
   final password = TextEditingController();
+  void clearControllers() {
+    email.clear();
+    password.clear();
+  }
 
   void login() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email.text, password: password.text);
-
+      clearControllers();
       User? user = FirebaseAuth.instance.currentUser;
       if (user != null && !user.emailVerified) {
         // If the email is not verified, navigate to the verify email page
@@ -30,6 +34,32 @@ class LoginController extends GetxController {
     } catch (e) {
       Get.snackbar(
         'Error :',
+        e.toString(),
+        backgroundColor: Colors.red,
+      );
+    }
+  }
+
+  void logout() async {
+    await FirebaseAuth.instance.signOut();
+    clearControllers();
+    Get.offAllNamed('/login/');
+  }
+
+  void forgotPassword() async {
+    try {
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: email.text.trim());
+      Get.snackbar(
+        'Success',
+        'Password reset email sent. Please check your email.',
+        backgroundColor: Colors.green,
+      );
+      clearControllers();
+      Get.offAllNamed('/login/');
+    } catch (e) {
+      Get.snackbar(
+        'Error:',
         e.toString(),
         backgroundColor: Colors.red,
       );

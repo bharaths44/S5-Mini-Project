@@ -1,8 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:e_commerce_flutter/src/controller/firebase_auth.dart';
+import 'package:e_commerce_flutter/src/view/screen/auth/login/login_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+final LoginController loginController = Get.put(LoginController());
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -41,12 +45,7 @@ class ProfileScreen extends StatelessWidget {
                 ElevatedButton(
                   child: const Text('Logout'),
                   onPressed: () async {
-                    await FirebaseAuth.instance.signOut();
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      '/login/',
-                      (route) => false,
-                    );
+                    loginController.logout();
                   },
                 ),
               ],

@@ -24,6 +24,12 @@ class InputField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: labelText,
         prefixIcon: icon,
+        enabledBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey),
+        ),
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey),
+        ),
       ),
       obscureText: obscureText,
       validator: (value) {
