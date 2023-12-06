@@ -11,4 +11,3 @@ Future<String> getUserName(User? user) async {
   }
   return "Guest";
 }
-
