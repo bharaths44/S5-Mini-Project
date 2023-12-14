@@ -27,6 +27,10 @@ class ProductController extends GetxController {
     getFavoriteItems();
   }
 
+  getAllItems() {
+    filteredProducts.assignAll(allProducts);
+  }
+
   Future<void> fetchProducts() async {
     allProducts = await firebaseFunctions.getProducts();
     filteredProducts.value = allProducts;
@@ -46,9 +50,7 @@ class ProductController extends GetxController {
       if (allProducts.isEmpty) {
         await fetchProducts();
       }
-
       filteredProducts.value = allProducts;
-      print(filteredProducts.length);
     } else {
       filteredProducts.assignAll(allProducts.where((item) {
         return item.type == categories[index].type;
@@ -58,6 +60,7 @@ class ProductController extends GetxController {
     update();
   }
 
+//Favorite Function
   Future<void> isFavorite(int index) async {
     var product = filteredProducts[index];
 
@@ -76,6 +79,20 @@ class ProductController extends GetxController {
     update();
   }
 
+  Future<void> getFavoriteItems() async {
+    var docSnapshot =
+        await FirebaseFirestore.instance.collection('users').doc(userid).get();
+    var favorites = docSnapshot.data()?['favorites'] ?? [];
+
+    favoriteProducts.assignAll(
+      allProducts.where((product) {
+        return favorites.contains(product.name);
+      }).toList(),
+    );
+    update();
+  }
+
+//Cart Function
   void addToCart(Product product) {
     var foundProduct =
         cartProducts.firstWhereOrNull((p) => p.name == product.name);
@@ -89,8 +106,11 @@ class ProductController extends GetxController {
 
     FirebaseFirestore.instance.collection('users').doc(userid).update({
       'cart': cartProducts
-          .map(
-              (product) => {'name': product.name, 'quantity': product.quantity})
+          .map((product) => {
+                'name': product.name,
+                'quantity': product.quantity,
+                'price': product.price * product.quantity
+              })
           .toList(),
     });
 
@@ -135,31 +155,13 @@ class ProductController extends GetxController {
   void calculateTotalPrice() {
     totalPrice.value = 0;
     for (var element in cartProducts) {
-      totalPrice.value += element.quantity * element.price;
+      totalPrice.value += (element.quantity * element.price);
     }
-  }
-
-  Future<void> getFavoriteItems() async {
-    var docSnapshot =
-        await FirebaseFirestore.instance.collection('users').doc(userid).get();
-    var favorites = docSnapshot.data()?['favorites'] ?? [];
-
-    favoriteProducts.assignAll(
-      allProducts.where((product) {
-        return favorites.contains(product.name);
-      }).toList(),
-    );
-    update();
-    print('Favorite Products : ${favoriteProducts.length}');
   }
 
   getCartItems() {
     cartProducts.assignAll(
       allProducts.where((item) => item.quantity > 0),
     );
-  }
-
-  getAllItems() {
-    filteredProducts.assignAll(allProducts);
   }
 }
