@@ -7,7 +7,6 @@ class Product {
   bool isAvailable;
   int quantity;
   String image;
-  bool isFavorite;
   String type;
   int stock;
 
@@ -19,7 +18,6 @@ class Product {
     required this.isAvailable,
     required this.quantity,
     required this.image,
-    required this.isFavorite,
     required this.type,
   });
   factory Product.fromFirestore(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -31,7 +29,6 @@ class Product {
       isAvailable: data['isAvailable'] ?? false,
       quantity: data['quantity'] ?? 0,
       image: data['image'],
-      isFavorite: data['isFavorite'] ?? false,
       type: data['type'],
       stock: data['stock'] ?? 0,
     );
@@ -45,7 +42,6 @@ class Product {
       "isAvailable": isAvailable,
       "image": image,
       "quantity": quantity,
-      "isFavorite": isFavorite,
       "type": type,
       "stock": stock,
     };

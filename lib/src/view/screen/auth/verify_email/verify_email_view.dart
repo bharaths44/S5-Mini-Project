@@ -2,7 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class VerifyEmailView extends StatefulWidget {
+  const VerifyEmailView({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _VerifyEmailViewState createState() => _VerifyEmailViewState();
 }
 
