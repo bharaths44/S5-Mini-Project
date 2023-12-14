@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_flutter/src/controller/firebase_functions.dart';
 import 'package:get/get.dart';
 
@@ -8,6 +9,8 @@ import 'package:e_commerce_flutter/src/model/product_category.dart';
 
 class ProductController extends GetxController {
   FirebaseFunctions firebaseFunctions = FirebaseFunctions();
+
+  var userid = FirebaseFunctions().getCurrentUserId();
 
   List<Product> allProducts = [];
   RxList<Product> filteredProducts = <Product>[].obs;
@@ -28,6 +31,7 @@ class ProductController extends GetxController {
     filteredProducts.value = allProducts;
     print(allProducts.length);
     await filterItemsByCategory(1);
+    print(userid);
   }
 
   Future<void> filterItemsByCategory(int index) async {
@@ -56,8 +60,22 @@ class ProductController extends GetxController {
   }
 
   void isFavorite(int index) {
-    filteredProducts[index].isFavorite = !filteredProducts[index].isFavorite;
-    update();
+    var product = filteredProducts[index];
+
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(userid)
+        .get()
+        .then((docSnapshot) {
+      var favorites = docSnapshot.data()?['favorites'] ?? [];
+      var isFavorite = favorites.contains(product.name);
+
+      FirebaseFirestore.instance.collection('users').doc(userid).update({
+        'favorites': isFavorite
+            ? FieldValue.arrayRemove([product.name])
+            : FieldValue.arrayUnion([product.name]),
+      });
+    });
   }
 
   void addToCart(Product product) {
@@ -71,21 +89,45 @@ class ProductController extends GetxController {
       cartProducts.add(product);
     }
 
-    print("In add to cart");
-    print(cartProducts.length);
+    FirebaseFirestore.instance.collection('users').doc(userid).update({
+      'cart': cartProducts
+          .map(
+              (product) => {'name': product.name, 'quantity': product.quantity})
+          .toList(),
+    });
+
     calculateTotalPrice();
-    print('Price $totalPrice');
     update();
   }
 
   void increaseItemQuantity(Product product) {
     product.quantity++;
+
+    FirebaseFirestore.instance.collection('users').doc(userid).update({
+      'cart': cartProducts
+          .map(
+              (product) => {'name': product.name, 'quantity': product.quantity})
+          .toList(),
+    });
+
     calculateTotalPrice();
     update();
   }
 
   void decreaseItemQuantity(Product product) {
+    // replace with actual user id
     product.quantity--;
+    if (product.quantity <= 0) {
+      cartProducts.remove(product);
+    }
+
+    FirebaseFirestore.instance.collection('users').doc(userid).set({
+      'cart': cartProducts
+          .map(
+              (product) => {'name': product.name, 'quantity': product.quantity})
+          .toList(),
+    }, SetOptions(merge: true));
+
     calculateTotalPrice();
     update();
   }
@@ -99,10 +141,12 @@ class ProductController extends GetxController {
     }
   }
 
-  getFavoriteItems() {
-    filteredProducts.assignAll(
-      allProducts.where((item) => item.isFavorite),
-    );
+  Future<List<String>> getFavoriteItems() async {
+    var docSnapshot =
+        await FirebaseFirestore.instance.collection('users').doc(userid).get();
+    var favorites = docSnapshot.data()?['favorites'] ?? [];
+
+    return favorites.cast<String>();
   }
 
   getCartItems() {

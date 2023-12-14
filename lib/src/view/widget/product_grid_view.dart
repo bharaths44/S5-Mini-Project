@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:e_commerce_flutter/src/model/product.dart';
 import 'package:e_commerce_flutter/src/view/animation/open_container_wrapper.dart';
+import 'package:get/get.dart';
+
+import '../../controller/product_controller.dart';
 
 class ProductGridView extends StatelessWidget {
-  const ProductGridView({
+  ProductGridView({
     Key? key,
     required this.items,
     required this.likeButtonPressed,
+    required this.favorites,
   }) : super(key: key);
-
+  final ProductController controller = Get.put(ProductController());
   final List<Product> items;
-
+  final List<String> favorites;
   final void Function(int index) likeButtonPressed;
   Widget _gridItemHeader(Product product, int index) {
     return Padding(
@@ -21,11 +25,11 @@ class ProductGridView extends StatelessWidget {
           IconButton(
             icon: Icon(
               Icons.favorite,
-              color: items[index].isFavorite
+              color: favorites.contains(items[index].name)
                   ? Colors.redAccent
                   : const Color(0xFFA6A3A0),
             ),
-            onPressed: () => likeButtonPressed(index),
+            onPressed: () => controller.isFavorite(index),
           ),
         ],
       ),

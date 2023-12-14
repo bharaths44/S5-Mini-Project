@@ -9,7 +9,6 @@ class FavoriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    controller.getFavoriteItems();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -19,12 +18,25 @@ class FavoriteScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: GetBuilder(
-          builder: (ProductController controller) {
-            return ProductGridView(
-                items: controller.filteredProducts,
-                likeButtonPressed: (index) => controller.isFavorite(index),
-                );
+        child: FutureBuilder(
+          future: controller.getFavoriteItems(),
+          builder:
+              (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              return GetBuilder(
+                builder: (ProductController controller) {
+                  return ProductGridView(
+                    items: controller.filteredProducts,
+                    likeButtonPressed: (index) => controller.isFavorite(index),
+                    favorites: snapshot.data!,
+                  );
+                },
+              );
+            }
           },
         ),
       ),
