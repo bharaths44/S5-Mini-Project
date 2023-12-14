@@ -3,7 +3,7 @@ import 'package:e_commerce_flutter/src/view/widget/inputfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-final RegisterController controller = Get.put(RegisterController());
+final RegisterController controller = Get.find<RegisterController>();
 
 class RegisterCard extends StatelessWidget {
   const RegisterCard({super.key});

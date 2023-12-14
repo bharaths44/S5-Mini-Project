@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProductListScreen extends StatelessWidget {
-  final controller = Get.put(ProductController());
+  final controller = Get.find<ProductController>();
 
   ProductListScreen({super.key});
   Widget _topCategoriesHeader(BuildContext context) {
@@ -73,8 +73,8 @@ class ProductListScreen extends StatelessWidget {
                       GetBuilder(builder: (ProductController controller) {
                         return ProductGridView(
                           items: controller.filteredProducts,
-                          likeButtonPressed: (index) =>
-                              controller.isFavorite(index), favorites: [],
+                          //likeButtonPressed: (index) =>
+                          //controller.isFavorite(index),
                         );
                       }),
                     ],

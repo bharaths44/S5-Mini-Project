@@ -9,28 +9,28 @@ class ProductGridView extends StatelessWidget {
   ProductGridView({
     Key? key,
     required this.items,
-    required this.likeButtonPressed,
-    required this.favorites,
+    //required this.likeButtonPressed,
   }) : super(key: key);
   final ProductController controller = Get.put(ProductController());
   final List<Product> items;
-  final List<String> favorites;
-  final void Function(int index) likeButtonPressed;
+  //final void Function(int index) likeButtonPressed;
   Widget _gridItemHeader(Product product, int index) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          IconButton(
-            icon: Icon(
-              Icons.favorite,
-              color: favorites.contains(items[index].name)
-                  ? Colors.redAccent
-                  : const Color(0xFFA6A3A0),
-            ),
-            onPressed: () => controller.isFavorite(index),
-          ),
+          Obx(() {
+            return IconButton(
+              icon: Icon(
+                Icons.favorite,
+                color: controller.favoriteProducts.contains(product)
+                    ? Colors.redAccent
+                    : const Color(0xFFA6A3A0),
+              ),
+              onPressed: () => controller.isFavorite(index),
+            );
+          }),
         ],
       ),
     );

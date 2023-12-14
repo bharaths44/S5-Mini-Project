@@ -15,6 +15,7 @@ class ProductController extends GetxController {
   List<Product> allProducts = [];
   RxList<Product> filteredProducts = <Product>[].obs;
   RxList<Product> cartProducts = <Product>[].obs;
+  RxList<Product> favoriteProducts = <Product>[].obs;
   RxList<ProductCategory> categories = AppData.categories.obs;
   RxInt totalPrice = 0.obs;
 
@@ -22,16 +23,14 @@ class ProductController extends GetxController {
   void onInit() {
     super.onInit();
     fetchProducts();
-    // FirebaseFunctions().addProduct();
-    print("fetching");
+    getCartItems();
+    getFavoriteItems();
   }
 
   Future<void> fetchProducts() async {
     allProducts = await firebaseFunctions.getProducts();
     filteredProducts.value = allProducts;
-    print(allProducts.length);
     await filterItemsByCategory(1);
-    print(userid);
   }
 
   Future<void> filterItemsByCategory(int index) async {
@@ -59,23 +58,22 @@ class ProductController extends GetxController {
     update();
   }
 
-  void isFavorite(int index) {
+  Future<void> isFavorite(int index) async {
     var product = filteredProducts[index];
 
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(userid)
-        .get()
-        .then((docSnapshot) {
-      var favorites = docSnapshot.data()?['favorites'] ?? [];
-      var isFavorite = favorites.contains(product.name);
+    var docSnapshot =
+        await FirebaseFirestore.instance.collection('users').doc(userid).get();
 
-      FirebaseFirestore.instance.collection('users').doc(userid).update({
-        'favorites': isFavorite
-            ? FieldValue.arrayRemove([product.name])
-            : FieldValue.arrayUnion([product.name]),
-      });
+    var favorites = docSnapshot.data()?['favorites'] ?? [];
+    var isFavorite = favorites.contains(product.name);
+
+    await FirebaseFirestore.instance.collection('users').doc(userid).update({
+      'favorites': isFavorite
+          ? FieldValue.arrayRemove([product.name])
+          : FieldValue.arrayUnion([product.name]),
     });
+    getFavoriteItems();
+    update();
   }
 
   void addToCart(Product product) {
@@ -141,12 +139,18 @@ class ProductController extends GetxController {
     }
   }
 
-  Future<List<String>> getFavoriteItems() async {
+  Future<void> getFavoriteItems() async {
     var docSnapshot =
         await FirebaseFirestore.instance.collection('users').doc(userid).get();
     var favorites = docSnapshot.data()?['favorites'] ?? [];
 
-    return favorites.cast<String>();
+    favoriteProducts.assignAll(
+      allProducts.where((product) {
+        return favorites.contains(product.name);
+      }).toList(),
+    );
+    update();
+    print('Favorite Products : ${favoriteProducts.length}');
   }
 
   getCartItems() {

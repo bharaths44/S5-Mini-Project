@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 class LoginCard extends StatelessWidget {
   LoginCard({super.key});
 
-  final LoginController controller = Get.put(LoginController());
+  final LoginController controller = Get.find<LoginController>();
   @override
   Widget build(BuildContext context) {
     double height = Get.height;

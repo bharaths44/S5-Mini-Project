@@ -5,7 +5,7 @@ import 'package:e_commerce_flutter/src/view/screen/auth/register/register_contro
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-final RegisterController controller = Get.put(RegisterController());
+final RegisterController controller = Get.find<RegisterController>();
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});

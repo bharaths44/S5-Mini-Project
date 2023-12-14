@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
 
-  final DashBoardController controller = Get.put(DashBoardController());
+  final DashBoardController controller = Get.find<DashBoardController>();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
             index: controller.tabIndex.value,
             children: [
               ProductListScreen(),
-              const FavoriteScreen(),
+              FavoriteScreen(),
               const CartScreen(),
               const ProfileScreen()
             ],

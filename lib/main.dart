@@ -1,5 +1,6 @@
+import 'package:e_commerce_flutter/core/binding.dart';
+import 'package:e_commerce_flutter/core/dependency.dart';
 import 'package:e_commerce_flutter/firebase_options.dart';
-import 'package:e_commerce_flutter/src/controller/product_controller.dart';
 import 'package:e_commerce_flutter/src/view/screen/auth/forgot_password/forgot_password_screen.dart';
 import 'package:e_commerce_flutter/src/view/screen/auth/login/login_screen.dart';
 import 'package:e_commerce_flutter/src/view/screen/auth/register/register_screen.dart';
@@ -12,10 +13,10 @@ import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  DependencyCreator.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  Get.put(ProductController());
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
@@ -32,6 +33,8 @@ void main() async {
         '/verifyemail/': (context) => VerifyEmailView(),
         '/forgot_password/': (context) => const ForgotPassWordScreen(),
       },
+      getPages: Nav.routes,
+      initialBinding: DashBoardControllerBinding(),
     ),
   );
 }

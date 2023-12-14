@@ -6,7 +6,7 @@ import 'package:e_commerce_flutter/src/view/widget/empty_cart.dart';
 import 'package:e_commerce_flutter/src/controller/product_controller.dart';
 import 'package:e_commerce_flutter/src/view/animation/animated_switcher_wrapper.dart';
 
-final ProductController controller = Get.put(ProductController());
+final ProductController controller = Get.find<ProductController>();
 
 class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);
