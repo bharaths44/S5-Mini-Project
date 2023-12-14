@@ -1,9 +1,9 @@
-import 'package:e_commerce_flutter/src/view/screen/auth/login/login_controller.dart';
-import 'package:e_commerce_flutter/src/view/screen/auth/register/register_controller.dart';
-import 'package:e_commerce_flutter/src/view/screen/home_screen/home_controller.dart';
+import 'package:e_commerce_flutter/src/auth/login/login_controller.dart';
+import 'package:e_commerce_flutter/src/auth/register/register_controller.dart';
+import 'package:e_commerce_flutter/src/customerview/view/screen/home_screen/home_controller.dart';
 import 'package:get/get.dart';
 
-import '../src/controller/product_controller.dart';
+import '../src/customerview/controller/product_controller.dart';
 
 class ProductControllerBinding extends Bindings {
   @override

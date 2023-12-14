@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:e_commerce_flutter/src/model/product.dart';
-import 'package:e_commerce_flutter/src/view/animation/open_container_wrapper.dart';
+import 'package:e_commerce_flutter/src/customerview/view/animation/open_container_wrapper.dart';
 import 'package:get/get.dart';
 
 import '../../controller/product_controller.dart';

@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce_flutter/src/controller/firebase_functions.dart';
+import 'package:e_commerce_flutter/src/customerview/controller/firebase_functions.dart';
 import 'package:get/get.dart';
 
 import 'package:e_commerce_flutter/core/app_data.dart';
@@ -109,7 +109,8 @@ class ProductController extends GetxController {
           .map((product) => {
                 'name': product.name,
                 'quantity': product.quantity,
-                'price': product.price * product.quantity
+                'price': product.price,
+                'totalPrice': product.price * product.quantity,
               })
           .toList(),
     });
@@ -123,8 +124,12 @@ class ProductController extends GetxController {
 
     FirebaseFirestore.instance.collection('users').doc(userid).update({
       'cart': cartProducts
-          .map(
-              (product) => {'name': product.name, 'quantity': product.quantity})
+          .map((product) => {
+                'name': product.name,
+                'quantity': product.quantity,
+                'price': product.price,
+                'totalPrice': product.price * product.quantity,
+              })
           .toList(),
     });
 
@@ -141,8 +146,12 @@ class ProductController extends GetxController {
 
     FirebaseFirestore.instance.collection('users').doc(userid).set({
       'cart': cartProducts
-          .map(
-              (product) => {'name': product.name, 'quantity': product.quantity})
+          .map((product) => {
+                'name': product.name,
+                'quantity': product.quantity,
+                'price': product.price,
+                'totalPrice': product.price * product.quantity,
+              })
           .toList(),
     }, SetOptions(merge: true));
 

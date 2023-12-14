@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:e_commerce_flutter/src/controller/firebase_auth.dart';
-import 'package:e_commerce_flutter/src/view/screen/auth/login/login_controller.dart';
+import 'package:e_commerce_flutter/src/customerview/controller/firebase_auth.dart';
+import 'package:e_commerce_flutter/src/auth/login/login_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

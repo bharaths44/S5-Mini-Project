@@ -1,6 +1,6 @@
-import 'package:e_commerce_flutter/src/view/screen/auth/login/bg_image.dart';
-import 'package:e_commerce_flutter/src/view/screen/auth/register/register_card.dart';
-import 'package:e_commerce_flutter/src/view/screen/auth/register/register_controller.dart';
+import 'package:e_commerce_flutter/src/auth/login/bg_image.dart';
+import 'package:e_commerce_flutter/src/auth/register/register_card.dart';
+import 'package:e_commerce_flutter/src/auth/register/register_controller.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

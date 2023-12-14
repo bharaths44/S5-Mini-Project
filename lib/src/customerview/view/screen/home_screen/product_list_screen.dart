@@ -1,7 +1,7 @@
-import 'package:e_commerce_flutter/src/controller/firebase_auth.dart';
-import 'package:e_commerce_flutter/src/controller/product_controller.dart';
-import 'package:e_commerce_flutter/src/view/widget/list_item_selector.dart';
-import 'package:e_commerce_flutter/src/view/widget/product_grid_view.dart';
+import 'package:e_commerce_flutter/src/customerview/controller/firebase_auth.dart';
+import 'package:e_commerce_flutter/src/customerview/controller/product_controller.dart';
+import 'package:e_commerce_flutter/src/customerview/view/widget/list_item_selector.dart';
+import 'package:e_commerce_flutter/src/customerview/view/widget/product_grid_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
