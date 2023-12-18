@@ -1,7 +1,7 @@
 import 'package:e_commerce_flutter/src/customerview/controller/firebase_auth.dart';
 import 'package:e_commerce_flutter/src/customerview/controller/product_controller.dart';
-import 'package:e_commerce_flutter/src/customerview/view/widget/list_item_selector.dart';
-import 'package:e_commerce_flutter/src/customerview/view/widget/product_grid_view.dart';
+import 'package:e_commerce_flutter/src/widget/list_item_selector.dart';
+import 'package:e_commerce_flutter/src/widget/product_grid_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -73,8 +73,6 @@ class ProductListScreen extends StatelessWidget {
                       GetBuilder(builder: (ProductController controller) {
                         return ProductGridView(
                           items: controller.filteredProducts,
-                          //likeButtonPressed: (index) =>
-                          //controller.isFavorite(index),
                         );
                       }),
                     ],

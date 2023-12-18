@@ -3,17 +3,15 @@ import 'package:e_commerce_flutter/src/model/product.dart';
 import 'package:e_commerce_flutter/src/customerview/view/animation/open_container_wrapper.dart';
 import 'package:get/get.dart';
 
-import '../../controller/product_controller.dart';
+import '../customerview/controller/product_controller.dart';
 
 class ProductGridView extends StatelessWidget {
   ProductGridView({
     Key? key,
     required this.items,
-    //required this.likeButtonPressed,
   }) : super(key: key);
-  final ProductController controller = Get.put(ProductController());
+  final ProductController controller = Get.find<ProductController>();
   final List<Product> items;
-  //final void Function(int index) likeButtonPressed;
   Widget _gridItemHeader(Product product, int index) {
     return Padding(
       padding: const EdgeInsets.all(10.0),

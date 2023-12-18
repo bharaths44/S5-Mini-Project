@@ -8,14 +8,14 @@ import '../src/customerview/controller/product_controller.dart';
 class ProductControllerBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<ProductController>(() => ProductController());
+    Get.lazyPut<ProductController>(() => ProductController(), fenix: true);
   }
 }
 
 class DashBoardControllerBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<DashBoardController>(() => DashBoardController());
+    Get.lazyPut<DashBoardController>(() => DashBoardController(), fenix: true);
   }
 }
 
@@ -38,5 +38,6 @@ class DependencyCreator {
     ProductControllerBinding().dependencies();
     DashBoardControllerBinding().dependencies();
     RegisterControllerBinding().dependencies();
+    LoginControllerBinding().dependencies();
   }
 }

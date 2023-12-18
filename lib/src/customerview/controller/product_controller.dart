@@ -9,7 +9,7 @@ import 'package:e_commerce_flutter/src/model/product_category.dart';
 
 class ProductController extends GetxController {
   FirebaseFunctions firebaseFunctions = FirebaseFunctions();
-
+  
   var userid = FirebaseFunctions().getCurrentUserId();
 
   List<Product> allProducts = [];
@@ -173,4 +173,7 @@ class ProductController extends GetxController {
       allProducts.where((item) => item.quantity > 0),
     );
   }
+
+  
+
 }
