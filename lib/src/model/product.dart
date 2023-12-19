@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Product {
-  String id = "";
+
   String name;
   int price;
   String about;
@@ -20,12 +20,11 @@ class Product {
     required this.quantity,
     required this.image,
     required this.type,
-    required String id,
+
   });
   factory Product.fromFirestore(DocumentSnapshot<Map<String, dynamic>> doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     return Product(
-      id: doc.id,
       name: data['name'],
       price: data['price'] ?? 0,
       about: data['about'],
@@ -39,7 +38,6 @@ class Product {
 
   Map<String, dynamic> toFirestore() {
     return {
-      "id": id,
       "name": name,
       "price": price,
       "about": about,

@@ -36,6 +36,7 @@ class AddProductController extends GetxController {
       print('No image selected.');
       // No need to return here, as it's optional to have an image
     }
+    update();
   }
 
   Future<void> addProduct() async {
@@ -47,9 +48,10 @@ class AddProductController extends GetxController {
       'price': int.parse(price.text.toString()),
       'type': type.text.toString(),
       'image': inputImageUrl.value,
+      'isAvailable': true,
     };
     await FirebaseFirestore.instance
-        .collection('products')
+        .collection('product')
         .doc(name.text.toString())
         .set(product);
     loading.value = false;

@@ -86,7 +86,7 @@ class ProductController extends GetxController {
           ? FieldValue.arrayRemove([product.name])
           : FieldValue.arrayUnion([product.name]),
     });
-    likedProducts[product.id] = !isFavorite;
+    likedProducts[product.name] = !isFavorite;
     getFavoriteItems();
     update();
   }
@@ -104,21 +104,30 @@ class ProductController extends GetxController {
     update();
   }
 
-  void populateLikedProducts() {
-    // Iterate over all products
+  // void populateLikedProducts() {
+  //   for (var product in allProducts) {
+  //     if (favoriteProducts
+  //         .any((favoriteProduct) => favoriteProduct.name == product.name)) {
+  //       likedProducts[product.name] = true;
+  //     } else {
+  //       likedProducts[product.name] = false;
+  //     }
+  //   }
+  //   likedProducts.refresh();
+  //   update();
+  // }
+
+  Future<void> populateLikedProducts() async {
+    var docSnapshot =
+        await FirebaseFirestore.instance.collection('users').doc(userid).get();
+    var favorites = docSnapshot.data()?['favorites'] ?? [];
+
     for (var product in allProducts) {
-      // Check if the product is in the favoriteProducts list
-      if (favoriteProducts
-          .any((favoriteProduct) => favoriteProduct.id == product.id)) {
-        // If it is, add the product id to the likedProducts map with a value of true
-        likedProducts[product.id] = true;
-      } else {
-        // Otherwise, add the product id with a value of false
-        likedProducts[product.id] = false;
-      }
+      likedProducts[product.name] = favorites.contains(product.name);
     }
-    // Update the likedProducts map to trigger updates in the UI
-    likedProducts.refresh();
+
+    // Update the UI
+    update();
   }
 
 //Cart Function
