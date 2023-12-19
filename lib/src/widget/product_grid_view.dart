@@ -22,11 +22,15 @@ class ProductGridView extends StatelessWidget {
             return IconButton(
               icon: Icon(
                 Icons.favorite,
-                color: controller.favoriteProducts.contains(product)
-                    ? Colors.redAccent
-                    : const Color(0xFFA6A3A0),
+                color: (controller.likedProducts[product.id] ?? false)
+                    ? Colors.red
+                    : Colors.grey,
               ),
-              onPressed: () => controller.isFavorite(index),
+              onPressed: () {
+                controller.isFavorite(index);
+                controller.likedProducts[product.id] =
+                    !(controller.likedProducts[product.id] ?? false);
+              },
             );
           }),
         ],

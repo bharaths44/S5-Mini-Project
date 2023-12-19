@@ -21,6 +21,8 @@ class ProductController extends GetxController {
   RxList<ProductCategory> categories = AppData.categories.obs;
   RxInt totalPrice = 0.obs;
   RxString username = ''.obs;
+  RxBool isLiked = false.obs;
+  RxMap<String, bool> likedProducts = <String, bool>{}.obs;
 
   @override
   void onInit() {
@@ -28,7 +30,7 @@ class ProductController extends GetxController {
     fetchProducts();
     getCartItems();
     fetchUsername();
-    getFavoriteItems();
+    getFavoriteItems().then((_) => populateLikedProducts());
   }
 
   Future<void> fetchUsername() async {
@@ -84,6 +86,7 @@ class ProductController extends GetxController {
           ? FieldValue.arrayRemove([product.name])
           : FieldValue.arrayUnion([product.name]),
     });
+    likedProducts[product.id] = !isFavorite;
     getFavoriteItems();
     update();
   }
@@ -99,6 +102,23 @@ class ProductController extends GetxController {
       }).toList(),
     );
     update();
+  }
+
+  void populateLikedProducts() {
+    // Iterate over all products
+    for (var product in allProducts) {
+      // Check if the product is in the favoriteProducts list
+      if (favoriteProducts
+          .any((favoriteProduct) => favoriteProduct.id == product.id)) {
+        // If it is, add the product id to the likedProducts map with a value of true
+        likedProducts[product.id] = true;
+      } else {
+        // Otherwise, add the product id with a value of false
+        likedProducts[product.id] = false;
+      }
+    }
+    // Update the likedProducts map to trigger updates in the UI
+    likedProducts.refresh();
   }
 
 //Cart Function
