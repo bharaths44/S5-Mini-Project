@@ -40,6 +40,7 @@ class RegisterCard extends StatelessWidget {
               name: 'Password',
               controller: controller.password,
               labelText: 'Enter Password',
+              obscureText: true,
               icon: const Icon(Icons.lock_outline_sharp),
             ),
             InputField(

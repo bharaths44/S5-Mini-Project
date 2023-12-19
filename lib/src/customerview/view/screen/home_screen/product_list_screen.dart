@@ -36,20 +36,16 @@ class ProductListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    User? user = FirebaseAuth.instance.currentUser;
-
     controller.getAllItems();
-    return FutureBuilder<String>(
-      future: getUserName(user),
-      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
+    return GetBuilder<ProductController>(
+      builder: (controller) {
+        if (controller.username.value == '') {
           return const Scaffold(
             body: Center(
               child: CircularProgressIndicator(),
             ),
           );
         } else {
-          String username = snapshot.data ?? "Guest";
           return Scaffold(
             extendBodyBehindAppBar: true,
             appBar: AppBar(backgroundColor: const Color(0xFFf16b26)),
@@ -61,7 +57,7 @@ class ProductListScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Hello $username',
+                        'Hello ${controller.username}',
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       Text(
@@ -70,11 +66,13 @@ class ProductListScreen extends StatelessWidget {
                       ),
                       _topCategoriesHeader(context),
                       _topCategoriesListView(),
-                      GetBuilder(builder: (ProductController controller) {
-                        return ProductGridView(
-                          items: controller.filteredProducts,
-                        );
-                      }),
+                      GetBuilder<ProductController>(
+                          init: controller,
+                          builder: (controller) {
+                            return ProductGridView(
+                              items: controller.filteredProducts,
+                            );
+                          }),
                     ],
                   ),
                 ),

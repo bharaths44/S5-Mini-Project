@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce_flutter/src/customerview/controller/firebase_auth.dart';
 import 'package:e_commerce_flutter/src/customerview/controller/firebase_functions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 import 'package:e_commerce_flutter/core/app_data.dart';
@@ -9,7 +11,7 @@ import 'package:e_commerce_flutter/src/model/product_category.dart';
 
 class ProductController extends GetxController {
   FirebaseFunctions firebaseFunctions = FirebaseFunctions();
-  
+
   var userid = FirebaseFunctions().getCurrentUserId();
 
   List<Product> allProducts = [];
@@ -18,13 +20,20 @@ class ProductController extends GetxController {
   RxList<Product> favoriteProducts = <Product>[].obs;
   RxList<ProductCategory> categories = AppData.categories.obs;
   RxInt totalPrice = 0.obs;
+  RxString username = ''.obs;
 
   @override
   void onInit() {
     super.onInit();
     fetchProducts();
     getCartItems();
+    fetchUsername();
     getFavoriteItems();
+  }
+
+  Future<void> fetchUsername() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    username.value = await getUserName(user);
   }
 
   getAllItems() {
@@ -138,7 +147,6 @@ class ProductController extends GetxController {
   }
 
   void decreaseItemQuantity(Product product) {
-    // replace with actual user id
     product.quantity--;
     if (product.quantity <= 0) {
       cartProducts.remove(product);
@@ -173,7 +181,4 @@ class ProductController extends GetxController {
       allProducts.where((item) => item.quantity > 0),
     );
   }
-
-  
-
 }
