@@ -3,6 +3,7 @@
 import 'package:e_commerce_flutter/src/customerview/controller/firebase_auth.dart';
 import 'package:e_commerce_flutter/src/auth/login/login_controller.dart';
 import 'package:e_commerce_flutter/src/customerview/view/screen/profile_screen/orders.dart';
+import 'package:e_commerce_flutter/src/widget/gridcard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -58,41 +59,21 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 Expanded(
                   child: GridView.count(
+                    shrinkWrap: true,
+                    physics: const ScrollPhysics(),
                     crossAxisCount: 2, // adjust as needed
                     children: [
-                      InkWell(
-                        onTap: loginController.logout,
-                        child: GridTile(
-                          footer: IconButton(
-                            icon: const Icon(Icons.logout),
-                            onPressed: loginController.logout,
-                          ),
-                          child: const Center(
-                            child: Text(
-                              "Logout",
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ),
-                        ),
+                      GridCard(
+                        action: loginController.logout,
+                        icon: Icons.logout,
+                        message: "Logout",
                       ),
-                      InkWell(
-                        onTap: () {
+                      GridCard(
+                        message: "Orders",
+                        action: () {
                           Get.to(() => OrderScreen());
                         },
-                        child: GridTile(
-                          footer: IconButton(
-                            icon: const Icon(Icons.shopping_cart),
-                            onPressed: () {
-                              Get.to(() => OrderScreen());
-                            },
-                          ),
-                          child: const Center(
-                            child: Text(
-                              "Orders",
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ),
-                        ),
+                        icon: Icons.shopping_cart,
                       ),
                     ],
                   ),
