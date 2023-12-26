@@ -1,10 +1,13 @@
 import 'package:e_commerce_flutter/src/customerview/controller/product_controller.dart';
+import 'package:e_commerce_flutter/src/customerview/view/screen/home_screen/home_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
   final ProductController controller = Get.find<ProductController>();
+  final DashBoardController dashboardController =
+      Get.find<DashBoardController>();
   final email = TextEditingController();
   final password = TextEditingController();
 
@@ -47,6 +50,7 @@ class LoginController extends GetxController {
   void logout() async {
     await FirebaseAuth.instance.signOut();
     clearControllers();
+    dashboardController.initTabIndex();
     Get.offAllNamed('/login/');
   }
 

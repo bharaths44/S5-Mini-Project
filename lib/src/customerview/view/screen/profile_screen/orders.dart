@@ -50,10 +50,8 @@ class OrderScreen extends StatelessWidget {
                   ),
                   subtitle: Text(
                     'Total price: ₹${order['totalPrice']}\nDate: $formattedDate',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.grey[700],
-                    ),
+                    style: const TextStyle(
+                        fontSize: 16.0, fontWeight: FontWeight.w400),
                   ),
                   children: cartProducts.map((product) {
                     return ListTile(
@@ -66,9 +64,8 @@ class OrderScreen extends StatelessWidget {
                       ),
                       subtitle: Text(
                         'Quantity: ${product['quantity']}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14.0,
-                          color: Colors.grey[700],
                         ),
                       ),
                     );

@@ -12,7 +12,6 @@ class FavoriteScreen extends StatelessWidget {
       init: controller,
       builder: (controller) {
         return Scaffold(
-          extendBodyBehindAppBar: true,
           appBar: AppBar(
             backgroundColor: const Color(0xFFf16b26),
             title: const Text("Favorites",
