@@ -1,15 +1,18 @@
+import 'package:e_commerce_flutter/src/customerview/controller/product_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
+  final ProductController controller = Get.find<ProductController>();
   final email = TextEditingController();
   final password = TextEditingController();
+
   void clearControllers() {
     email.clear();
     password.clear();
   }
-  
+
   void login() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -21,6 +24,7 @@ class LoginController extends GetxController {
         Get.toNamed('/verifyemail/');
       } else if (user != null && user.emailVerified) {
         // If the email is verified, navigate to the home page
+        executeOnInitLogic();
         Get.offAllNamed(
           '/home/',
         );
@@ -64,5 +68,10 @@ class LoginController extends GetxController {
         backgroundColor: Colors.red,
       );
     }
+  }
+
+  void executeOnInitLogic() {
+    controller.fetchProducts();
+    controller.fetchUsername();
   }
 }

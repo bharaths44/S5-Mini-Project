@@ -28,14 +28,12 @@ class ProductController extends GetxController {
   void onInit() {
     super.onInit();
     fetchProducts();
-    getCartItems();
-    fetchUsername();
-    getFavoriteItems().then((_) => populateLikedProducts());
   }
 
   Future<void> fetchUsername() async {
     User? user = FirebaseAuth.instance.currentUser;
     username.value = await getUserName(user);
+    userid = FirebaseFunctions().getCurrentUserId();
   }
 
   getAllItems() {
@@ -46,6 +44,8 @@ class ProductController extends GetxController {
     allProducts = await firebaseFunctions.getProducts();
     filteredProducts.value = allProducts;
     await filterItemsByCategory(1);
+
+    getFavoriteItems().then((_) => populateLikedProducts());
   }
 
   Future<void> filterItemsByCategory(int index) async {
@@ -103,19 +103,6 @@ class ProductController extends GetxController {
     );
     update();
   }
-
-  // void populateLikedProducts() {
-  //   for (var product in allProducts) {
-  //     if (favoriteProducts
-  //         .any((favoriteProduct) => favoriteProduct.name == product.name)) {
-  //       likedProducts[product.name] = true;
-  //     } else {
-  //       likedProducts[product.name] = false;
-  //     }
-  //   }
-  //   likedProducts.refresh();
-  //   update();
-  // }
 
   Future<void> populateLikedProducts() async {
     var docSnapshot =
@@ -203,11 +190,5 @@ class ProductController extends GetxController {
     for (var element in cartProducts) {
       totalPrice.value += (element.quantity * element.price);
     }
-  }
-
-  getCartItems() {
-    cartProducts.assignAll(
-      allProducts.where((item) => item.quantity > 0),
-    );
   }
 }

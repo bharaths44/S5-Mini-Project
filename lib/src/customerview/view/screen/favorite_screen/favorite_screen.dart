@@ -9,7 +9,7 @@ class FavoriteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProductController>(
-      init: controller, // Initialize the controller here
+      init: controller, 
       builder: (controller) {
         return Scaffold(
           appBar: AppBar(
