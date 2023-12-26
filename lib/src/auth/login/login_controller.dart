@@ -9,7 +9,7 @@ class LoginController extends GetxController {
     email.clear();
     password.clear();
   }
-
+  
   void login() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(

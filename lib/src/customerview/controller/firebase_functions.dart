@@ -51,7 +51,6 @@ class FirebaseFunctions {
       'price': 90000,
       'isAvailable': true,
       'image': "https://www.dslr-zone.com/wp-content/uploads/2021/10/5-2.jpeg",
-      '_quantity': 1,
       'type': "mobile",
       'stock': 10,
     });
