@@ -6,6 +6,8 @@ import 'package:e_commerce_flutter/src/widget/empty_cart.dart';
 import 'package:e_commerce_flutter/src/customerview/controller/product_controller.dart';
 import 'package:e_commerce_flutter/src/customerview/view/animation/animated_switcher_wrapper.dart';
 
+import '../payment_screen/payment_screen.dart';
+
 final ProductController controller = Get.find<ProductController>();
 
 class CartScreen extends StatelessWidget {
@@ -152,6 +154,11 @@ class CartScreen extends StatelessWidget {
           onPressed: controller.cartProducts.isEmpty
               ? null
               : () {
+                  //Get.toNamed('/payment_screen/');
+                  makePayment(
+                      currency: "INR",
+                      amount: (controller.totalPrice.value * 100).toString());
+
                   print('Buy now action');
                   // Add your buy now action here
                 },

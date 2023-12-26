@@ -37,6 +37,7 @@ class ProductListScreen extends StatelessWidget {
     controller.getAllItems();
     return GetBuilder<ProductController>(
       builder: (controller) {
+        controller.fetchUsername();
         if (controller.username.value == '') {
           return const Scaffold(
             body: Center(

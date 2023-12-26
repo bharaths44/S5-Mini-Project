@@ -9,11 +9,16 @@ import 'package:e_commerce_flutter/src/auth/verify_email/verify_email_view.dart'
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
+
+import 'src/customerview/view/screen/payment_screen/env.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   DependencyCreator.init();
+  Stripe.publishableKey = stripePublishableKey;
+  await Stripe.instance.applySettings();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

@@ -127,6 +127,7 @@ class ProductController extends GetxController {
     } else {
       product.quantity = 1;
       cartProducts.add(product);
+      print(cartProducts.length);
     }
 
     FirebaseFirestore.instance.collection('users').doc(userid).update({
