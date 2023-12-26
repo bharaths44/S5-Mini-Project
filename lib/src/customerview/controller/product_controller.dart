@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_flutter/src/customerview/controller/firebase_auth.dart';
 import 'package:e_commerce_flutter/src/customerview/controller/firebase_functions.dart';
+import 'package:e_commerce_flutter/src/customerview/view/screen/home_screen/home_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
@@ -200,7 +201,12 @@ class ProductController extends GetxController {
     calculateTotalPrice();
     update();
 
-    // Redirect to the home screen
+    DashBoardController controller = Get.find<DashBoardController>();
+    controller.initTabIndex();
     Get.offAllNamed('/home/');
+  }
+  getOrderDetails() async {
+    await firebaseFunctions.getUserOrders(userid!);
+    
   }
 }

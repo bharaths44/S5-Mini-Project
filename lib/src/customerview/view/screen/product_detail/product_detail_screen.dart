@@ -69,7 +69,7 @@ class ProductDetailScreen extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            "\$${product.price}",
+                            "₹${product.price}",
                             style: Theme.of(context).textTheme.displayLarge,
                           ),
                           const SizedBox(width: 3),

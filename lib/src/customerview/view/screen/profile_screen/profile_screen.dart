@@ -2,6 +2,7 @@
 
 import 'package:e_commerce_flutter/src/customerview/controller/firebase_auth.dart';
 import 'package:e_commerce_flutter/src/auth/login/login_controller.dart';
+import 'package:e_commerce_flutter/src/customerview/view/screen/profile_screen/orders.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,6 +47,14 @@ class ProfileScreen extends StatelessWidget {
                   child: const Text('Logout'),
                   onPressed: () async {
                     loginController.logout();
+                  },
+                ),
+                ElevatedButton(
+                  child: const Text('Orders'),
+                  onPressed: () async {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => OrderScreen()),
+                    );
                   },
                 ),
               ],

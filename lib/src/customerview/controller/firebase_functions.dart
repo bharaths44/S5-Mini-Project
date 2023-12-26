@@ -128,4 +128,19 @@ class FirebaseFunctions {
     };
     await db.collection('orders').add(orderData);
   }
+  Future<List<Object?>> getUserOrders(String userId) async {
+    FirebaseFirestore db = FirebaseFirestore.instance;
+
+    // Get the orders of the current user
+    QuerySnapshot querySnapshot = await db.collection('orders')
+        .where('userId', isEqualTo: userId)
+        .get();
+
+    // Convert the documents to a list of maps
+    List<Object?> orders = querySnapshot.docs.map((doc) {
+      return doc.data();
+    }).toList();
+
+    return orders;
+  }
 }
