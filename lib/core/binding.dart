@@ -19,7 +19,7 @@ class Nav {
     ),
     GetPage(
       name: '/register/',
-      page: () => RegisterScreen(),
+      page: () => const RegisterScreen(),
       binding: RegisterControllerBinding(),
     )
   ];

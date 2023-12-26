@@ -108,4 +108,24 @@ class FirebaseFunctions {
     DocumentReference userDoc = db.collection('users').doc(userId);
     await userDoc.update({'cart': cartData});
   }
+
+  Future<void> newOrder(
+      List<Product> cartProducts, int totalPrice, String userId) async {
+    FirebaseFirestore db = FirebaseFirestore.instance;
+
+    // Prepare the order data
+    Map<String, dynamic> orderData = {
+      'timestamp': Timestamp.now(),
+      'cartProducts': cartProducts
+          .map((product) => {
+                'name': product.name,
+                'quantity': product.quantity,
+                'price': product.price,
+              })
+          .toList(),
+      'totalPrice': totalPrice,
+      'userId': userId,
+    };
+    await db.collection('orders').add(orderData);
+  }
 }

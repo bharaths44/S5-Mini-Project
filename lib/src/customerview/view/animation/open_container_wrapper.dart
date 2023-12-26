@@ -21,11 +21,16 @@ class OpenContainerWrapper extends StatelessWidget {
       ),
       closedColor: const Color(0xFFE5E6E8),
       transitionType: ContainerTransitionType.fade,
-      transitionDuration: const Duration(milliseconds: 850),
-      closedBuilder: (_, VoidCallback openContainer) {
-        return InkWell(onTap: openContainer, child: child);
+      transitionDuration: const Duration(milliseconds: 750),
+      openBuilder: (BuildContext context, VoidCallback _) {
+        return ProductDetailScreen(product);
       },
-      openBuilder: (_, __) => ProductDetailScreen(product),
+      closedBuilder: (BuildContext context, VoidCallback openContainer) {
+        return GestureDetector(
+          onTap: openContainer,
+          child: child,
+        );
+      },
     );
   }
 }

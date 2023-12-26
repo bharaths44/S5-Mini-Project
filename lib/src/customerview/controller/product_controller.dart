@@ -127,7 +127,6 @@ class ProductController extends GetxController {
     } else {
       product.quantity = 1;
       cartProducts.add(product);
-      print(cartProducts.length);
     }
 
     FirebaseFirestore.instance.collection('users').doc(userid).update({
@@ -191,5 +190,17 @@ class ProductController extends GetxController {
     for (var element in cartProducts) {
       totalPrice.value += (element.quantity * element.price);
     }
+  }
+
+  void storeOrderDetails() async {
+    await firebaseFunctions.newOrder(cartProducts, totalPrice.value, userid!);
+
+    // Empty the cart
+    cartProducts.clear();
+    calculateTotalPrice();
+    update();
+
+    // Redirect to the home screen
+    Get.offAllNamed('/home/');
   }
 }

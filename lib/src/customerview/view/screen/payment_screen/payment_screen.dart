@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:e_commerce_flutter/src/customerview/controller/product_controller.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
@@ -8,7 +10,7 @@ import 'env.dart';
 
 late GlobalKey<FormState> paymentForm;
 Map<String, dynamic>? paymentIntentData;
-
+ProductController controller = Get.find<ProductController>();
 Future<void> makePayment(
     {required String amount, required String currency}) async {
   try {
@@ -40,6 +42,7 @@ displayPaymentSheet() async {
     await Stripe.instance.presentPaymentSheet();
     Get.snackbar('Payment Status', 'Payment received',
         backgroundColor: Colors.green);
+    controller.storeOrderDetails();
   } on StripeException catch (e) {
     Get.snackbar('Payment Status', '${e.error.localizedMessage}',
         backgroundColor: Colors.red);

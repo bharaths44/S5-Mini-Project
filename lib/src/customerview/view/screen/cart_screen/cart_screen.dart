@@ -128,11 +128,11 @@ class CartScreen extends StatelessWidget {
             () {
               return AnimatedSwitcherWrapper(
                 child: Text(
-                  "\$${controller.totalPrice.value}",
+                  "₹${controller.totalPrice.value}",
                   key: ValueKey<int>(controller.totalPrice.value),
                   style: const TextStyle(
                     fontSize: 25,
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.w800,
                     color: Color(0xFFEC6813),
                   ),
                 ),
@@ -149,21 +149,19 @@ class CartScreen extends StatelessWidget {
       width: double.infinity,
       child: Padding(
         padding: const EdgeInsets.only(left: 30, right: 30, bottom: 20),
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(padding: const EdgeInsets.all(20)),
-          onPressed: controller.cartProducts.isEmpty
-              ? null
-              : () {
-                  //Get.toNamed('/payment_screen/');
-                  makePayment(
-                      currency: "INR",
-                      amount: (controller.totalPrice.value * 100).toString());
-
-                  print('Buy now action');
-                  // Add your buy now action here
-                },
-          child: const Text("Buy Now"),
-        ),
+        child: Obx(() {
+          return ElevatedButton(
+            style: ElevatedButton.styleFrom(padding: const EdgeInsets.all(20)),
+            onPressed: controller.cartProducts.isEmpty
+                ? null
+                : () {
+                    makePayment(
+                        currency: "INR",
+                        amount: (controller.totalPrice.value * 100).toString());
+                  },
+            child: const Text("Buy Now"),
+          );
+        }),
       ),
     );
   }
