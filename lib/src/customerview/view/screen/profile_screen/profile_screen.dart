@@ -16,6 +16,15 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xFFf16b26),
+        title: const Text("Profile Screen",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 35,
+              fontWeight: FontWeight.w300,
+            )),
+      ),
       body: FutureBuilder<String>(
         future: getUserName(user),
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
@@ -24,38 +33,69 @@ class ProfileScreen extends StatelessWidget {
           } else {
             String username = snapshot.data ?? "Guest";
             return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Expanded(child: Image.asset('assets/images/profile_pic.png')),
-                Text(
-                  "Hello $username",
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 25),
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const CircleAvatar(
+                        radius: 100, // adjust as needed
+                        backgroundImage:
+                            AssetImage('assets/images/profile_pic.png'),
+                      ),
+                      const SizedBox(height: 20), // adjust as needed
+                      Text(
+                        "Hello $username",
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30, // adjust as needed
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Image.asset('assets/images/github.png', width: 60),
-                    SizedBox(width: 10),
-                    Text(
-                      "Profile Screen",
-                      style: TextStyle(fontSize: 20),
-                    )
-                  ],
-                ),
-                ElevatedButton(
-                  child: const Text('Logout'),
-                  onPressed: () async {
-                    loginController.logout();
-                  },
-                ),
-                ElevatedButton(
-                  child: const Text('Orders'),
-                  onPressed: () async {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => OrderScreen()),
-                    );
-                  },
+                Expanded(
+                  child: GridView.count(
+                    crossAxisCount: 2, // adjust as needed
+                    children: [
+                      InkWell(
+                        onTap: loginController.logout,
+                        child: GridTile(
+                          footer: IconButton(
+                            icon: const Icon(Icons.logout),
+                            onPressed: loginController.logout,
+                          ),
+                          child: const Center(
+                            child: Text(
+                              "Logout",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Get.to(() => OrderScreen());
+                        },
+                        child: GridTile(
+                          footer: IconButton(
+                            icon: const Icon(Icons.shopping_cart),
+                            onPressed: () {
+                              Get.to(() => OrderScreen());
+                            },
+                          ),
+                          child: const Center(
+                            child: Text(
+                              "Orders",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             );

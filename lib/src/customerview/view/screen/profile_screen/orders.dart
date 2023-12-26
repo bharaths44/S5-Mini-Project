@@ -16,7 +16,13 @@ class OrderScreen extends StatelessWidget {
     orderController.loadOrders(userId!);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your Orders'),
+        backgroundColor: const Color(0xFFf16b26),
+        title: const Text("Your Orders",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 35,
+              fontWeight: FontWeight.w300,
+            )),
       ),
       body: Obx(() {
         if (orderController.orders.value.isEmpty) {

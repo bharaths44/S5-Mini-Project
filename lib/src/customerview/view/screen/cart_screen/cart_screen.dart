@@ -13,15 +13,6 @@ final ProductController controller = Get.find<ProductController>();
 class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);
 
-  PreferredSizeWidget _appBar(BuildContext context) {
-    return AppBar(
-      title: Text(
-        "My cart",
-        style: Theme.of(context).textTheme.displayLarge,
-      ),
-    );
-  }
-
   Widget cartList() {
     return SingleChildScrollView(
       child: Column(
@@ -169,7 +160,16 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _appBar(context),
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: const Color(0xFFf16b26),
+        title: const Text("My Cart",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 35,
+              fontWeight: FontWeight.w300,
+            )),
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
