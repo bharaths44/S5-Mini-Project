@@ -17,6 +17,7 @@ class OrderScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(13, 41, 71, 1),
+        foregroundColor: Colors.white,
         title: const Text("Your Orders",
             style: TextStyle(
               color: Colors.white,

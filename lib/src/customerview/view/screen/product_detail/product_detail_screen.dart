@@ -95,6 +95,10 @@ class ProductDetailScreen extends StatelessWidget {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              foregroundColor:
+                                  const Color.fromRGBO(13, 41, 71, 1),
+                              padding: const EdgeInsets.all(20)),
                           onPressed: product.isAvailable
                               ? () => controller.addToCart(product)
                               : null,

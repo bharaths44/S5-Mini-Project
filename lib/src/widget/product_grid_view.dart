@@ -82,7 +82,7 @@ class ProductGridView extends StatelessWidget {
             ),
             Row(
               children: [
-                Text("\$${product.price}",
+                Text("₹${product.price}",
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 17,

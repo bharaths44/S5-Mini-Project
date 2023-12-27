@@ -16,6 +16,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<DashBoardController>(builder: (controller) {
       return Scaffold(
+        backgroundColor: const Color.fromRGBO(13, 41, 71, 1),
         body: SafeArea(
           child: IndexedStack(
             index: controller.tabIndex.value,

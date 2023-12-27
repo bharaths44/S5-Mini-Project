@@ -124,7 +124,7 @@ class CartScreen extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.w800,
-                    color: Color(0xFFEC6813),
+                    color: Color.fromRGBO(13, 41, 71, 1),
                   ),
                 ),
               );
@@ -142,7 +142,9 @@ class CartScreen extends StatelessWidget {
         padding: const EdgeInsets.only(left: 30, right: 30, bottom: 20),
         child: Obx(() {
           return ElevatedButton(
-            style: ElevatedButton.styleFrom(padding: const EdgeInsets.all(20)),
+            style: ElevatedButton.styleFrom(
+                foregroundColor: const Color.fromRGBO(13, 41, 71, 1),
+                padding: const EdgeInsets.all(20)),
             onPressed: controller.cartProducts.isEmpty
                 ? null
                 : () {
@@ -161,7 +163,7 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF0D2947),
+        backgroundColor: const Color.fromRGBO(13, 41, 71, 1),
         title: const Text("My Cart",
             style: TextStyle(
               color: Colors.white,
