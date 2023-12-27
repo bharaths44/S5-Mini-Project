@@ -62,6 +62,8 @@ class RegisterCard extends StatelessWidget {
               icon: const Icon(Icons.phone_outlined),
             ),
             ElevatedButton(
+              style: TextButton.styleFrom(
+                  foregroundColor: const Color.fromRGBO(13, 41, 71, 1)),
               onPressed: () async {
                 controller.signUp();
               },
