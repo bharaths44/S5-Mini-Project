@@ -23,7 +23,7 @@ class ProductDetailScreen extends StatelessWidget {
 
   Widget productPageView(double width, double height) {
     return Container(
-      height: height * 0.42,
+      height: height * 0.3,
       width: width,
       decoration: const BoxDecoration(
         color: Color(0xFFE5E6E8),
@@ -41,75 +41,82 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
+    double height = Get.height;
+    double width = Get.width;
     return SafeArea(
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: _appBar(context),
-        body: SingleChildScrollView(
-          child: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                productPageView(width, height),
-                const SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.all(20),
+        body: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        product.name,
-                        style: Theme.of(context).textTheme.displayMedium,
-                      ),
-                      const SizedBox(height: 10),
-                      // _ratingBar(context),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Text(
-                            "₹${product.price}",
-                            style: Theme.of(context).textTheme.displayLarge,
-                          ),
-                          const SizedBox(width: 3),
-                          const Spacer(),
-                          Text(
-                            product.isAvailable
-                                ? "Available in stock"
-                                : "Not available",
-                            style: const TextStyle(fontWeight: FontWeight.w500),
-                          )
-                        ],
-                      ),
-                      const SizedBox(height: 30),
-                      Text(
-                        "About",
-                        style: Theme.of(context).textTheme.headlineMedium,
-                      ),
-                      const SizedBox(height: 10),
-                      Text(product.about),
+                      productPageView(width, height),
                       const SizedBox(height: 20),
-
-                      const SizedBox(height: 20),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              foregroundColor:
-                                  const Color.fromRGBO(13, 41, 71, 1),
-                              padding: const EdgeInsets.all(20)),
-                          onPressed: product.isAvailable
-                              ? () => controller.addToCart(product)
-                              : null,
-                          child: const Text("Add to cart"),
-                        ),
-                      )
+                      Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                product.name,
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
+                              ),
+                              const SizedBox(height: 10),
+                              const SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  Text("₹${product.price}",
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 30,
+                                      )),
+                                  const SizedBox(width: 3),
+                                  const Spacer(),
+                                  Text(
+                                    product.isAvailable
+                                        ? "Available in stock"
+                                        : "Not available",
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w500),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(height: 30),
+                              Text(
+                                "About",
+                                style:
+                                    Theme.of(context).textTheme.headlineMedium,
+                              ),
+                              const SizedBox(height: 10),
+                              Text(product.about),
+                              const SizedBox(height: 20),
+                            ]),
+                      ),
                     ],
                   ),
-                )
-              ],
-            ),
+                ),
+              ),
+              SizedBox(
+                width: Get.width * 0.9,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: const Color.fromRGBO(13, 41, 71, 1),
+                    padding: const EdgeInsets.all(20),
+                  ),
+                  onPressed: product.isAvailable
+                      ? () => controller.addToCart(product)
+                      : null,
+                  child: const Text("Add to cart"),
+                ),
+              ),
+            ],
           ),
         ),
       ),
