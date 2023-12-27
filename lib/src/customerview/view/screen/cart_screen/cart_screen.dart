@@ -161,7 +161,7 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFFf16b26),
+        backgroundColor: Color.fromRGBO(13, 41, 71,1),
         title: const Text("My Cart",
             style: TextStyle(
               color: Colors.white,

@@ -28,7 +28,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
-          fixedColor: const Color(0xFFEC6813),
+          fixedColor: const Color.fromRGBO(13, 41, 71, 1),
           unselectedItemColor: Colors.grey,
           currentIndex: controller.tabIndex.value,
           items: const [

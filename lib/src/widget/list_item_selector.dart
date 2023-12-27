@@ -22,13 +22,13 @@ class _ListItemSelectorState extends State<ListItemSelector> {
       message: item.type,
       child: AnimatedContainer(
         margin: const EdgeInsets.only(left: 5),
-        duration: const Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 400),
         width: 50,
         height: 100,
         decoration: BoxDecoration(
           color: item.isSelected == false
               ? const Color(0xFFE5E6E8)
-              : const Color(0xFFf16b26),
+              : const Color.fromRGBO(13, 41, 71, 0.8),
           borderRadius: BorderRadius.circular(10),
         ),
         child: IconButton(

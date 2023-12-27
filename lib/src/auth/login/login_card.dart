@@ -38,8 +38,10 @@ class LoginCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Container(
-              child: logosvg,
+            Expanded(
+              child: Container(
+                child: logosvg,
+              ),
             ),
             InputField(
               name: 'Email',

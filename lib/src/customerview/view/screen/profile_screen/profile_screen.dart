@@ -18,7 +18,7 @@ class ProfileScreen extends StatelessWidget {
     User? user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFFf16b26),
+        backgroundColor: const Color.fromRGBO(13, 41, 71,1),
         title: const Text("Profile Screen",
             style: TextStyle(
               color: Colors.white,

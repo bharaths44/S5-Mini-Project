@@ -46,8 +46,7 @@ class ProductListScreen extends StatelessWidget {
           );
         } else {
           return Scaffold(
-            extendBodyBehindAppBar: true,
-            appBar: AppBar(backgroundColor: const Color(0xFFf16b26)),
+            appBar: AppBar(backgroundColor: const Color.fromRGBO(13, 41, 71,1),),
             body: SafeArea(
               child: SingleChildScrollView(
                 child: Padding(
