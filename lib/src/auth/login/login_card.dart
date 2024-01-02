@@ -40,7 +40,7 @@ class LoginCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Container(
+            SizedBox(
               height: height * 0.15,
               child: logosvg,
             ),

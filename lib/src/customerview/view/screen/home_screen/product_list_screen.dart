@@ -27,7 +27,6 @@ class ProductListScreen extends StatelessWidget {
     return ListItemSelector(
       categories: controller.categories,
       onItemPressed: (index) {
-        print("index $index");
         controller.filterItemsByCategory(index);
       },
     );
