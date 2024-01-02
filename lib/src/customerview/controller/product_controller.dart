@@ -14,7 +14,7 @@ class ProductController extends GetxController {
   FirebaseFunctions firebaseFunctions = FirebaseFunctions();
 
   var userid = FirebaseFunctions().getCurrentUserId();
-
+  RxBool isSelected = false.obs;
   List<Product> allProducts = [];
   RxList<Product> filteredProducts = <Product>[].obs;
   RxList<Product> cartProducts = <Product>[].obs;
@@ -29,6 +29,7 @@ class ProductController extends GetxController {
   void onInit() {
     super.onInit();
     fetchProducts();
+    //filterItemsByCategory(0);
   }
 
   Future<void> fetchUsername() async {
@@ -38,13 +39,12 @@ class ProductController extends GetxController {
   }
 
   getAllItems() {
-    filteredProducts.assignAll(allProducts);
+    filteredProducts.assignAll(allProducts.toList());
   }
 
   Future<void> fetchProducts() async {
     allProducts = await firebaseFunctions.getProducts();
-    filteredProducts.value = allProducts;
-    await filterItemsByCategory(1);
+    filteredProducts.assignAll(allProducts.toList());
 
     getFavoriteItems().then((_) => populateLikedProducts());
   }
@@ -58,11 +58,8 @@ class ProductController extends GetxController {
     }
     categories[index].isSelected = true;
 
-    if (categories[index].type == "all") {
-      if (allProducts.isEmpty) {
-        await fetchProducts();
-      }
-      filteredProducts.value = allProducts;
+    if (index == 0) {
+      filteredProducts.assignAll(allProducts.toList());
     } else {
       filteredProducts.assignAll(allProducts.where((item) {
         return item.type == categories[index].type;
@@ -205,8 +202,8 @@ class ProductController extends GetxController {
     controller.initTabIndex();
     Get.offAllNamed('/home/');
   }
+
   getOrderDetails() async {
     await firebaseFunctions.getUserOrders(userid!);
-    
   }
 }

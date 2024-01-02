@@ -1,4 +1,3 @@
-import 'package:e_commerce_flutter/src/customerview/controller/product_controller.dart';
 import 'package:e_commerce_flutter/src/customerview/view/screen/home_screen/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_flutter/src/customerview/view/screen/cart_screen/cart_screen.dart';
@@ -52,7 +51,7 @@ class HomeScreen extends StatelessWidget {
           ],
           onTap: (index) {
             controller.changeTabIndex(index);
-            Get.find<ProductController>().fetchProducts();
+            //Get.find<ProductController>().fetchProducts();
           },
         ),
       );

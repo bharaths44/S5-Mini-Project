@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:e_commerce_flutter/src/model/product_category.dart';
+import 'package:get/get.dart';
+
+import '../customerview/controller/product_controller.dart';
 
 class ListItemSelector extends StatefulWidget {
   const ListItemSelector({
@@ -17,6 +20,7 @@ class ListItemSelector extends StatefulWidget {
 }
 
 class _ListItemSelectorState extends State<ListItemSelector> {
+  final controller = Get.find<ProductController>();
   Widget item(ProductCategory item, int index) {
     return Tooltip(
       message: item.type,
@@ -44,7 +48,8 @@ class _ListItemSelectorState extends State<ListItemSelector> {
             for (var element in widget.categories) {
               element.isSelected = false;
             }
-
+            widget.categories[index].isSelected = true;
+            controller.filterItemsByCategory(index);
             item.isSelected = true;
             setState(() {});
           },

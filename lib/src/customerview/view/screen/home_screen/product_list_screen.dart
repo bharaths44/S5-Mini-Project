@@ -27,6 +27,7 @@ class ProductListScreen extends StatelessWidget {
     return ListItemSelector(
       categories: controller.categories,
       onItemPressed: (index) {
+        print("index $index");
         controller.filterItemsByCategory(index);
       },
     );
@@ -34,7 +35,7 @@ class ProductListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    controller.getAllItems();
+    // controller.getAllItems();
     return GetBuilder<ProductController>(
       builder: (controller) {
         controller.fetchUsername();
@@ -46,7 +47,9 @@ class ProductListScreen extends StatelessWidget {
           );
         } else {
           return Scaffold(
-            appBar: AppBar(backgroundColor: const Color.fromRGBO(13, 41, 71,1),),
+            appBar: AppBar(
+              backgroundColor: const Color.fromRGBO(13, 41, 71, 1),
+            ),
             body: SafeArea(
               child: SingleChildScrollView(
                 child: Padding(
