@@ -75,6 +75,7 @@ class LoginController extends GetxController {
   }
 
   void executeOnInitLogic() {
+    controller.allProducts.clear();
     controller.fetchProducts();
     controller.fetchUsername();
   }
